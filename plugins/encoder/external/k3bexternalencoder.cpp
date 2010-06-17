@@ -262,7 +262,7 @@ bool K3bExternalEncoder::writeWaveHeader()
 }
 
 
-long K3bExternalEncoder::encodeInternal( const char* data, Q_ULONG len )
+qint64 K3bExternalEncoder::encodeInternal( const char* data, qint64 len )
 {
     if( !d->initialized )
         return -1;

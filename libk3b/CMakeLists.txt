@@ -103,18 +103,6 @@ set(k3b_tools_SRCS
   tools/k3bprocess.cpp
   tools/qprocess/k3bqprocess.cpp
   tools/qprocess/k3bkprocess.cpp
-  tools/legacy/k3listview.cpp
-  tools/legacy/k3urldrag.cpp
-  tools/legacy/k3activelabel.cpp
-  tools/legacy/q3dragobject.cpp
-  tools/legacy/q3frame.cpp
-  tools/legacy/q3listbox.cpp
-  tools/legacy/q3listview.cpp
-  tools/legacy/q3scrollview.cpp
-  tools/legacy/q3mimefactory.cpp
-  tools/legacy/q3richtext_p.cpp
-  tools/legacy/q3simplerichtext.cpp
-  tools/legacy/q3stylesheet.cpp
   )
 
 if(WIN32)
@@ -251,15 +239,13 @@ endif (ENABLE_DVD_RIPPING)
 kde4_add_library(k3b SHARED ${k3b_LIB_SRCS})
 
 target_link_libraries(k3b
-  ${KDE4_KDECORE_LIBS}
-  ${KDE4_KUTILS_LIBS}
-  ${KDE4_SOLID_LIBS}
-  ${KDE4_KPTY_LIBS}
-  ${KDE4_KIO_LIBS}
   ${KCDDB_LIBRARIES}
+  ${KDE4_KDECORE_LIBS}
+  ${KDE4_KIO_LIBS}
+  ${KDE4_KUTILS_LIBS}
+  ${KDE4_KPTY_LIBS}
+  ${KDE4_SOLID_LIBS}
   ${SAMPLERATE_LIBRARIES}
-  ${QT_QTXML_LIBRARY}
-  ${QT_QT3SUPPORT_LIBRARY}
   k3bdevice
 )
 if(NOT WIN32)
