@@ -7,6 +7,7 @@ include_directories(
   ${libk3b_SOURCE_DIR}/core
   ${libk3b_SOURCE_DIR}/plugin
   ${libk3b_SOURCE_DIR}/tools
+  ${libk3b_SOURCE_DIR}/tools/legacy
   ${libk3b_SOURCE_DIR}/projects
   ${libk3b_SOURCE_DIR}/projects/audiocd
   ${libk3b_SOURCE_DIR}/projects/datacd

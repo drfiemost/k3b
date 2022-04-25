@@ -34,7 +34,7 @@
 #include <qpalette.h>
 #include <qpixmap.h>
 #include <QtGui/QTextBrowser>
-#include <QtWebKit/QWebView>
+//#include <QtWebKit/QWebView>
 
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -61,8 +61,8 @@ K3b::DiskInfoView::DiskInfoView( QWidget* parent )
                               Device::STATE_ALL|Device::STATE_NO_MEDIA|Device::STATE_UNKNOWN,
                               parent )
 {
-    m_infoView = new QWebView( this );
-    setMainWidget( m_infoView );
+    //m_infoView = new QWebView( this );
+    //setMainWidget( m_infoView );
 }
 
 
@@ -114,7 +114,7 @@ void K3b::DiskInfoView::reloadMedium()
 
     s += "</body>";
 
-    m_infoView->setHtml( s );
+    //m_infoView->setHtml( s );
     kDebug() << s;
 }
 

@@ -19,7 +19,7 @@
 
 #include "k3bmediacontentsview.h"
 
-class QWebView;
+//class QWebView;
 
 namespace K3b {
 class DiskInfoView : public MediaContentsView
@@ -38,7 +38,7 @@ private:
     QString createIso9660InfoItems( const Iso9660SimplePrimaryDescriptor& iso );
     QString createTrackItems( const Medium& medium );
 
-    QWebView* m_infoView;
+    //QWebView* m_infoView;
 };
 }
 

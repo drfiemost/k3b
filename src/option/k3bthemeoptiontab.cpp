@@ -28,7 +28,7 @@
 #include <kio/deletejob.h>
 #include <kstandarddirs.h>
 #include <ktar.h>
-#include <kurlrequesterdlg.h>
+#include <kurlrequesterdialog.h>
 #include <KGlobalSettings>
 
 #include <qlabel.h>

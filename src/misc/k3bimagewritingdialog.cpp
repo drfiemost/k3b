@@ -41,7 +41,7 @@
 #include "k3btrack.h"
 #include "k3bcdtext.h"
 
-#include <K3URLDrag>
+#include <k3urldrag.h>
 #include <KApplication>
 #include <KComboBox>
 #include <KConfig>

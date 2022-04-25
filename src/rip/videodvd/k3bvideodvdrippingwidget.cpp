@@ -28,7 +28,7 @@
 #include <QTimer>
 #include <QWhatsThis>
 
-#include <K3ListView>
+#include <k3listview.h>
 #include <KColorScheme>
 #include <KDialog>
 #include <KDiskFreeSpaceInfo>

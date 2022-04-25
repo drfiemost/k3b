@@ -18,7 +18,7 @@
 
 #include <kstandarddirs.h>
 #include <kglobalsettings.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <KConfigGroup>

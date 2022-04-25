@@ -18,7 +18,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 #include <KStandardGuiItem>
 #include <kdebug.h>
 #include <kurl.h>

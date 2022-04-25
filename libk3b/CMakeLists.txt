@@ -7,6 +7,7 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}/tools
   ${CMAKE_CURRENT_BINARY_DIR}/projects
   ${CMAKE_CURRENT_BINARY_DIR}/jobs
+  ${CMAKE_CURRENT_SOURCE_DIR}/tools/legacy
   )
 
 set(CMAKE_REQUIRED_LIBRARIES m)
@@ -86,6 +87,9 @@ set(k3b_tools_SRCS
   tools/k3bprocess.cpp 
   tools/qprocess/k3bqprocess.cpp
   tools/qprocess/k3bkprocess.cpp
+  tools/legacy/k3listview.cpp
+  tools/legacy/k3urldrag.cpp
+  tools/legacy/k3activelabel.cpp
   )
   
 if(WIN32)
@@ -225,10 +229,12 @@ target_link_libraries(k3b
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KUTILS_LIBS}
   ${KDE4_SOLID_LIBS}
-  ${KDE4_KDE3SUPPORT_LIBS}
   ${KDE4_KPTY_LIBS}
+  ${KDE4_KIO_LIBS}
   ${KCDDB_LIBRARIES}
   ${SAMPLERATE_LIBRARIES}
+  ${QT_QTXML_LIBRARY}
+  ${QT_QT3SUPPORT_LIBRARY}
   k3bdevice
 )
 if(NOT WIN32)

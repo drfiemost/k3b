@@ -65,7 +65,7 @@
 #include <kapplication.h>
 #include <kmessagebox.h>
 #include <kdialog.h>
-#include <K3URLDrag>
+#include <k3urldrag.h>
 #include <kactioncollection.h>
 
 
