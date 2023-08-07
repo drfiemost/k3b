@@ -106,7 +106,7 @@ macro_log_feature( KCDDB_FOUND "KCddb"
   TRUE "" "")
 
 if(K3B_BUILD_FFMPEG_DECODER_PLUGIN)
-  find_package(FFmpeg)
+  find_package(FFmpeg 4.4.0)
   macro_log_feature( FFMPEG_FOUND "FFmpeg"
     "Needed for the K3b FFmpeg decoder plugin which can decode virtually all audio types."
     "http://ffmpeg.org/"
