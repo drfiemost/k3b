@@ -20,7 +20,6 @@
 #ifndef KACTIVELABEL_H
 #define KACTIVELABEL_H
 
-#include <kde3support_export.h>
 #include <ktextbrowser.h>
 
 class K3ActiveLabelPrivate;
@@ -33,7 +32,7 @@ class K3ActiveLabelPrivate;
   *
   * @author Waldo Bastian (bastian@kde.org)
   */
-class KDE3SUPPORT_EXPORT K3ActiveLabel : public KTextBrowser
+class K3ActiveLabel : public KTextBrowser
 {
     Q_OBJECT
 public:
