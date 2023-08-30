@@ -19,7 +19,7 @@
 
 #include "k3activelabel.h"
 
-#include <Q3SimpleRichText>
+#include "q3simplerichtext.h"
 #include <QFocusEvent>
 
 #include <ktoolinvocation.h>

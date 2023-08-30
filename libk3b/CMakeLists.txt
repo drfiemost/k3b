@@ -94,6 +94,10 @@ set(k3b_tools_SRCS
   tools/legacy/q3frame.cpp
   tools/legacy/q3listview.cpp
   tools/legacy/q3scrollview.cpp
+  tools/legacy/q3mimefactory.cpp
+  tools/legacy/q3richtext_p.cpp
+  tools/legacy/q3simplerichtext.cpp
+  tools/legacy/q3stylesheet.cpp
   )
   
 if(WIN32)
