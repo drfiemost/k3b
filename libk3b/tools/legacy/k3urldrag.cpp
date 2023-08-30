@@ -18,9 +18,7 @@
 */
 
 #include "k3urldrag.h"
-#include <Qt3Support/Q3CString>
-#include <Qt3Support/Q3StrIList>
-#include <Qt3Support/Q3ColorDrag>
+#include <QByteArray>
 #include <QtGui/QFont>
 #include <unistd.h>
 
@@ -63,6 +61,7 @@ void K3URLDrag::init(const KUrl::List &urls)
     {
         m_urls.append( urlToString(*uit).toLatin1().constData() );
     }
+    
     setUris(m_urls);
 }
 
@@ -72,17 +71,6 @@ void K3URLDrag::setExportAsText( bool exp )
     if ( !d )
         d = new K3URLDragPrivate;
     d->m_exportAsText = exp;
-}
-
-K3URLDrag * K3URLDrag::newDrag( const KUrl::List &urls, QWidget* dragSource )
-{
-    return new K3URLDrag( urls, QMap<QString, QString>(), dragSource );
-}
-
-K3URLDrag * K3URLDrag::newDrag( const KUrl::List &urls, const QMap<QString, QString>& metaData,
-                              QWidget* dragSource )
-{
-    return new K3URLDrag( urls, metaData, dragSource );
 }
 
 QMap<QString, QString> &K3URLDrag::metaData()
@@ -106,7 +94,7 @@ bool K3URLDrag::decode( const QMimeSource *e, KUrl::List &uris )
                 while (c < payload.size() && d[c] && d[c]!='\r'
                         && d[c] != '\n')
                     c++;
-                Q3CString s(d+f,c-f+1);
+                QByteArray s(d+f,c-f+1);
                 if ( s[0] != '#' ) // non-comment?
                     uris.append(stringToUrl(s));
                 // Skip junk
@@ -118,11 +106,11 @@ bool K3URLDrag::decode( const QMimeSource *e, KUrl::List &uris )
         }
     }
 
-    Q3StrList lst;
+    QList<QByteArray> lst;
     Q3UriDrag::decode( e, lst );
-    for (Q3StrListIterator it(lst); *it; ++it)
+    for (QByteArray it: lst)
     {
-      KUrl url = stringToUrl( *it );
+      KUrl url = stringToUrl( it );
       if ( !url.isValid() )
       {
         uris.clear();
@@ -148,8 +136,10 @@ bool K3URLDrag::decode( const QMimeSource *e, KUrl::List &uris, QMap<QString,QSt
             for ( ; it != l.end(); ++it ) {
                 if ( readingKey )
                     key = *it;
-                else
-                    metaData.replace( key, *it );
+                else {
+                    metaData.remove(key);
+                    metaData.insert(key, *it);
+                }
                 readingKey = !readingKey;
             }
             Q_ASSERT( readingKey ); // an odd number of items would be, well, odd ;-)
@@ -186,9 +176,9 @@ QByteArray K3URLDrag::encodedData( const char* mime ) const
         return Q3UriDrag::encodedData( mime );
     else if ( mimetype == "text/plain" )
     {
-	QStringList uris;
-        for (Q3StrListIterator it(m_urls); *it; ++it)
-           uris.append(stringToUrl(*it).prettyUrl());
+        QStringList uris;
+        for (QByteArray url: m_urls)
+           uris.append(stringToUrl(url).prettyUrl());
 
         QByteArray s = uris.join( "\n" ).toLocal8Bit();
         if( uris.count() > 1 ) // terminate last line, unless it's the only line
@@ -199,8 +189,8 @@ QByteArray K3URLDrag::encodedData( const char* mime ) const
     else if ( mimetype.toLower() == "text/plain;charset=iso-8859-1")
     {
         QStringList uris;
-        for (Q3StrListIterator it(m_urls); *it; ++it)
-           uris.append(stringToUrl(*it).url()); // was using ",4" - the mib for latin1
+        for (QByteArray url: m_urls)
+           uris.append(stringToUrl(url).url()); // was using ",4" - the mib for latin1
 
         QByteArray s = uris.join( "\n" ).toLatin1();
         if( uris.count() > 1 )
@@ -211,8 +201,8 @@ QByteArray K3URLDrag::encodedData( const char* mime ) const
     else if ( mimetype.toLower() == "text/plain;charset=utf-8")
     {
         QStringList uris;
-        for (Q3StrListIterator it(m_urls); *it; ++it)
-           uris.append(stringToUrl(*it).prettyUrl());
+        for (QByteArray url: m_urls)
+           uris.append(stringToUrl(url).prettyUrl());
 
         QByteArray s = uris.join( "\n" ).toUtf8();
         if( uris.count() > 1 )
@@ -230,7 +220,7 @@ QByteArray K3URLDrag::encodedData( const char* mime ) const
             {
                 s += it.key();
                 s += "$@@$";
-                s += it.data();
+                s += it.value();
                 s += "$@@$";
             }
 	    a.resize( s.length() + 1 );
@@ -277,8 +267,3 @@ QString K3URLDrag::urlToString(const KUrl &url)
 
     return url.url(/*0 , 106*/); // 106 is mib enum for utf8 codec
 }
-
-// deprecated ctor
-K3URLDrag::K3URLDrag( const Q3StrList & urls, const QMap<QString,QString>& metaData,
-                    QWidget * dragSource ) :
-Q3UriDrag( urls, dragSource ), m_urls( urls ), m_metaData( metaData ), d( 0 ) {}

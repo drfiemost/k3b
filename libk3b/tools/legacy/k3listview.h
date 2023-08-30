@@ -20,10 +20,10 @@
 #ifndef KLISTVIEW_H
 #define KLISTVIEW_H
 
-class QColorGroup;
+class QPalette;
 
-#include <Qt3Support/Q3ListView>
-#include <Qt3Support/Q3PtrList>
+#include "q3listview.h"
+#include <QList>
 
 class Q3DragObject;
 class KConfig;
@@ -494,7 +494,7 @@ Q_SIGNALS:
    * each and every item moved, in order.  The first element in @p items associates
    * with the first of afterFirst and afterNow.
    */
-  void moved(Q3PtrList<Q3ListViewItem> &items, Q3PtrList<Q3ListViewItem> &afterFirst, Q3PtrList<Q3ListViewItem> &afterNow);
+  void moved(QList<Q3ListViewItem*> &items, QList<Q3ListViewItem*> &afterFirst, QList<Q3ListViewItem*> &afterNow);
 
   /**
    * This signal gets emitted when an item is renamed via in-place renaming.
@@ -1033,7 +1033,7 @@ public:
    */
   QColor backgroundColor(int column);
 
-  virtual void paintCell(QPainter *p, const QColorGroup &cg,
+  virtual void paintCell(QPainter *p, const QPalette &cg,
     int column, int width, int alignment);
 
 private:

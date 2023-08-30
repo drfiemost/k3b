@@ -90,6 +90,10 @@ set(k3b_tools_SRCS
   tools/legacy/k3listview.cpp
   tools/legacy/k3urldrag.cpp
   tools/legacy/k3activelabel.cpp
+  tools/legacy/q3dragobject.cpp
+  tools/legacy/q3frame.cpp
+  tools/legacy/q3listview.cpp
+  tools/legacy/q3scrollview.cpp
   )
   
 if(WIN32)

@@ -21,11 +21,13 @@
 #include "k3listview.h"
 #include "k3listviewlineedit.h"
 
-#include <Qt3Support/Q3ColorDrag>
+#include "q3dragobject.h"
+#include "q3header.h"
+
 #include <QtGui/QActionEvent>
 #include <QtCore/QTimer>
-#include <Qt3Support/Q3Header>
 #include <QtGui/QCursor>
+#include <QMutableListIterator>
 
 #include <QtGui/QStyle>
 #include <QStyleOptionFocusRect>
@@ -923,7 +925,7 @@ void K3ListView::contentsDropEvent(QDropEvent* e)
 
 void K3ListView::movableDropEvent (Q3ListViewItem* parent, Q3ListViewItem* afterme)
 {
-  Q3PtrList<Q3ListViewItem> items, afterFirsts, afterNows;
+  QList<Q3ListViewItem*> items, afterFirsts, afterNows;
   Q3ListViewItem *current=currentItem();
   bool hasMoved=false;
   for (Q3ListViewItem *i = firstChild(), *iNext=0; i; i = iNext)
@@ -960,8 +962,9 @@ void K3ListView::movableDropEvent (Q3ListViewItem* parent, Q3ListViewItem* after
     afterme = i;
   }
   clearSelection();
-  for (Q3ListViewItem *i=items.first(); i; i=items.next() )
-    i->setSelected(true);
+  QMutableListIterator it(items);
+  while (it.hasNext())
+    it.next()->setSelected(true);
   if (current)
     setCurrentItem(current);
 
@@ -1313,12 +1316,14 @@ QRect K3ListView::drawDropVisualizer(QPainter *p, Q3ListViewItem *parent,
             {
                 // Look for the last child (recursively)
                 it = after->firstChild();
-                if (it)
-                    while (it->nextSibling() || it->firstChild())
+                if (it) {
+                    while (it->nextSibling() || it->firstChild()) {
                         if ( it->nextSibling() )
                             it = it->nextSibling();
                         else
                             it = it->firstChild();
+                    }
+                }
             }
 
             insertmarker = itemRect (it ? it : after);
@@ -2328,9 +2333,9 @@ bool K3ListViewItem::isAlternate()
   return false;
 }
 
-void K3ListViewItem::paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int alignment)
+void K3ListViewItem::paintCell(QPainter *p, const QPalette &cg, int column, int width, int alignment)
 {
-  QColorGroup _cg = cg;
+  QPalette _cg = cg;
   Q3ListView* lv = listView();
   _cg.setColor( lv->backgroundRole(), backgroundColor(column) );
   Q3ListViewItem::paintCell(p, _cg, column, width, alignment);

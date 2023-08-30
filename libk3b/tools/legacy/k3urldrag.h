@@ -22,8 +22,11 @@
 
 #include <kurl.h>
 
+#include <QtCore/QByteArray>
+#include <QtCore/QList>
 #include <QtCore/QStringList>
-#include <Qt3Support/Q3ColorDrag>
+
+#include "q3dragobject.h"
 
 class QMimeSource;
 
@@ -76,18 +79,6 @@ public:
    * In such a case, setExportAsText( false ) should be called.
    */
   void setExportAsText( bool exp );
-
-  /**
-   * @deprecated Is equivalent with "new K3URLDrag(urls, dragSource, name)".
-   */
-  static K3URLDrag * newDrag( const KUrl::List &urls, QWidget* dragSource = 0 );
-
-  /**
-   * @deprecated Is equivalent with "new K3URLDrag(urls, metaData, dragSource, name)".
-   */
-  static K3URLDrag * newDrag( const KUrl::List &urls,
-                             const QMap<QString, QString>& metaData,
-                             QWidget* dragSource = 0 );
 
   /**
    * Meta-data to associate with those URLs.
@@ -144,17 +135,10 @@ public:
   /// @reimp
   virtual QByteArray encodedData( const char* mime ) const;
 
-protected:
-  /**
-   * @deprecated Use a K3URLDrag constructor with a KUrl::List
-   */
-  K3URLDrag( const Q3StrList & urls, const QMap<QString,QString>& metaData,
-            QWidget * dragSource );
-
 private:
   void init(const KUrl::List &urls);
 
-  Q3StrList m_urls;
+  QList<QByteArray> m_urls;
   QMap<QString,QString> m_metaData;
   K3URLDragPrivate* d;
 };
