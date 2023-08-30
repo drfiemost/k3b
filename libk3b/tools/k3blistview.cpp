@@ -21,14 +21,12 @@
 #include <qstringlist.h>
 #include <qfontmetrics.h>
 #include <qpainter.h>
-#include <q3header.h>
 #include <qrect.h>
 #include <qpushbutton.h>
 #include <qicon.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <qlineedit.h>
-#include <q3listbox.h>
 #include <qevent.h>
 #include <qvalidator.h>
 #include <qfont.h>
@@ -44,6 +42,9 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QStyleOptionProgressBar>
+
+#include "q3header.h"
+#include "q3listbox.h"
 
 
 #include <limits.h>
@@ -353,7 +354,7 @@ void K3b::ListViewItem::setup()
 }
 
 
-void K3b::ListViewItem::paintCell( QPainter* p, const QColorGroup& cg, int col, int width, int align )
+void K3b::ListViewItem::paintCell( QPainter* p, const QPalette& cg, int col, int width, int align )
 {
     ColumnInfo* info = getColumnInfo( col );
 
@@ -362,11 +363,11 @@ void K3b::ListViewItem::paintCell( QPainter* p, const QColorGroup& cg, int col, 
     QFont oldFont( p->font() );
     QFont newFont = info->fontSet ? info->font : oldFont;
     p->setFont( newFont );
-    QColorGroup cgh(cg);
+    QPalette cgh(cg);
     if( info->foregroundColorSet )
-        cgh.setColor( QColorGroup::Text, info->foregroundColor );
+        cgh.setColor( QPalette::Text, info->foregroundColor );
     if( info->backgroundColorSet )
-        cgh.setColor( QColorGroup::Base, info->backgroundColor );
+        cgh.setColor( QPalette::Base, info->backgroundColor );
 
     // in case this is the selected row has a margin we need to repaint the selection bar
     if( isSelected() &&
@@ -374,15 +375,15 @@ void K3b::ListViewItem::paintCell( QPainter* p, const QColorGroup& cg, int col, 
         info->margin > 0 ) {
 
         p->fillRect( 0, 0, info->margin, height(),
-                     cgh.brush( QColorGroup::Highlight ) );
+                     cgh.brush( QPalette::Highlight ) );
         p->fillRect( width-info->margin, 0, info->margin, height(),
-                     cgh.brush( QColorGroup::Highlight ) );
+                     cgh.brush( QPalette::Highlight ) );
     }
     else { // in case we use the K3ListView alternate color stuff
         p->fillRect( 0, 0, info->margin, height(),
-                     cgh.brush( QColorGroup::Base ) );
+                     cgh.brush( QPalette::Base ) );
         p->fillRect( width-info->margin, 0, info->margin, height(),
-                     cgh.brush( QColorGroup::Base ) );
+                     cgh.brush( QPalette::Base ) );
     }
 
     // FIXME: the margin (we can only translate horizontally since height() is used for painting)
@@ -399,13 +400,13 @@ void K3b::ListViewItem::paintCell( QPainter* p, const QColorGroup& cg, int col, 
 }
 
 
-void K3b::ListViewItem::paintK3bCell( QPainter* p, const QColorGroup& cg, int col, int width, int align )
+void K3b::ListViewItem::paintK3bCell( QPainter* p, const QPalette& cg, int col, int width, int align )
 {
     Q3ListViewItem::paintCell( p, cg, col, width, align );
 }
 
 
-void K3b::ListViewItem::paintProgressBar( QPainter* p, const QColorGroup& cgh, int col, int width )
+void K3b::ListViewItem::paintProgressBar( QPainter* p, const QPalette& cgh, int col, int width )
 {
     ColumnInfo* info = getColumnInfo( col );
 
@@ -413,7 +414,7 @@ void K3b::ListViewItem::paintProgressBar( QPainter* p, const QColorGroup& cgh, i
     QRect r( 0, m_vMargin, width, height()-2*m_vMargin );
 
     // create the double buffer pixmap
-    static QPixmap *doubleBuffer = 0;
+    static QPixmap *doubleBuffer = nullptr;
     if( !doubleBuffer )
         doubleBuffer = new QPixmap;
     doubleBuffer->resize( width, height() );
@@ -424,7 +425,7 @@ void K3b::ListViewItem::paintProgressBar( QPainter* p, const QColorGroup& cgh, i
     if( K3b::ListView* lv = dynamic_cast<K3b::ListView*>(listView()) )
         lv->paintEmptyArea( &dbPainter, r );
     else
-        dbPainter.fillRect( 0, 0, width, height(), cgh.brush( QColorGroup::Base ) );
+        dbPainter.fillRect( 0, 0, width, height(), cgh.brush( QPalette::Base ) );
 
     // we want a little additional margin
     r.setLeft( r.left()+1 );
@@ -491,7 +492,7 @@ void K3b::CheckListViewItem::setChecked( bool checked )
 }
 
 
-void K3b::CheckListViewItem::paintK3bCell( QPainter* p, const QColorGroup& cg, int col, int width, int align )
+void K3b::CheckListViewItem::paintK3bCell( QPainter* p, const QPalette& cg, int col, int width, int align )
 {
     K3b::ListViewItem::paintK3bCell( p, cg, col, width, align );
 #ifdef __GNUC__

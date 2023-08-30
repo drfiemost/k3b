@@ -17,7 +17,7 @@
 #define K3BLISTVIEW_H
 
 
-#include <k3listview.h>
+#include "k3listview.h"
 #include "k3b_export.h"
 #include <qstringlist.h>
 //Added by qt3to4:
@@ -121,12 +121,12 @@ namespace K3b {
         /**
          * Do not reimplement this but paintK3bCell to use the margin and background stuff.
          */
-        virtual void paintCell( QPainter* p, const QColorGroup& cg, int col, int width, int align );
+        virtual void paintCell( QPainter* p, const QPalette& cg, int col, int width, int align );
 
-        virtual void paintK3bCell( QPainter* p, const QColorGroup& cg, int col, int width, int align );
+        virtual void paintK3bCell( QPainter* p, const QPalette& cg, int col, int width, int align );
 
     private:
-        void paintProgressBar( QPainter* p, const QColorGroup& cgh, int col, int width );
+        void paintProgressBar( QPainter* p, const QPalette& cgh, int col, int width );
 
         class ColumnInfo;
         mutable ColumnInfo* m_columns;
@@ -153,7 +153,7 @@ namespace K3b {
         virtual void setChecked( bool checked );
 
     protected:
-        virtual void paintK3bCell( QPainter* p, const QColorGroup& cg, int col, int width, int align );
+        virtual void paintK3bCell( QPainter* p, const QPalette& cg, int col, int width, int align );
 
     private:
         bool m_checked;

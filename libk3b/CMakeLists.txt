@@ -92,6 +92,7 @@ set(k3b_tools_SRCS
   tools/legacy/k3activelabel.cpp
   tools/legacy/q3dragobject.cpp
   tools/legacy/q3frame.cpp
+  tools/legacy/q3listbox.cpp
   tools/legacy/q3listview.cpp
   tools/legacy/q3scrollview.cpp
   tools/legacy/q3mimefactory.cpp

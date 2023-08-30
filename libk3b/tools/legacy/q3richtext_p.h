@@ -1360,7 +1360,7 @@ public:
 
 protected:
     virtual QTextLineStart *formatLine(Q3TextParagraph *parag, Q3TextString *string, QTextLineStart *line, Q3TextStringChar *start,
-                                               Q3TextStringChar *last, int align = Qt::AlignAuto, int space = 0);
+                                               Q3TextStringChar *last, int align = Qt::AlignLeft, int space = 0);
 #ifndef QT_NO_COMPLEXTEXT
     virtual QTextLineStart *bidiReorderLine(Q3TextParagraph *parag, Q3TextString *string, QTextLineStart *line, Q3TextStringChar *start,
                                                     Q3TextStringChar *last, int align, int space);
