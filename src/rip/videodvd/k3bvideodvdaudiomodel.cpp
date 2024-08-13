@@ -88,7 +88,7 @@ QModelIndex VideoDVDAudioModel::indexForTitle( const VideoDVD::Title& title, int
 {
     int row = d->titles.indexOf( title.titleNumber() );
     if( row >= 0 )
-        return createIndex( row, column, 0 );
+        return createIndex( row, column );
     else
         return QModelIndex();
 }
@@ -234,7 +234,7 @@ QModelIndex VideoDVDAudioModel::index( int row, int column, const QModelIndex& p
     }
     else if( !parent.isValid() ) {
         if( row >= 0 && row < d->titles.size() )
-            return createIndex( row, column, 0 );
+            return createIndex( row, column );
         else
             return QModelIndex();
     }

@@ -90,7 +90,7 @@ QModelIndex ExternalBinModel::indexForProgram( ExternalProgram* program, int col
 {
     int i = d->programs.indexOf( program );
     if( i >= 0 && i < d->programs.size() )
-        return createIndex( i, column, 0 );
+        return createIndex( i, column );
     else
         return QModelIndex();
 }
