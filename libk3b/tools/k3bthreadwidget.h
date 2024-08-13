@@ -17,10 +17,10 @@
 
 #include <qobject.h>
 #include <qhash.h>
-#include <QCustomEvent>
+#include <QEvent>
 
 
-class QCustomEvent;
+class QEvent;
 
 namespace K3b {
     namespace Device {

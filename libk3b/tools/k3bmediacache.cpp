@@ -29,7 +29,6 @@
 #include <qthread.h>
 #include <qmutex.h>
 #include <qevent.h>
-#include <QCustomEvent>
 #include <krandom.h>
 
 #include <libkcddb/client.h>
