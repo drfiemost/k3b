@@ -27,7 +27,7 @@
 #include <QPolygon>
 #include <QToolTip>
 
-
+#include <algorithm>
 
 class K3b::AudioEditorWidget::Range
 {
@@ -377,7 +377,7 @@ QList<int> K3b::AudioEditorWidget::allRanges() const
     }
 
     // ...then sort it...
-    qSort( ranges.begin(), ranges.end(), SortByStart() );
+    std::sort( ranges.begin(), ranges.end(), SortByStart() );
 
     // ...finally collect its identifiers and return the collection.
     QList<int> identifiers;

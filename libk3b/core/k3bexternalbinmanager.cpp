@@ -34,6 +34,8 @@
 #include <stdlib.h>
 #endif
 
+#include <algorithm>
+
 
 namespace {
     bool compareVersions( const K3b::ExternalBin* bin1, const K3b::ExternalBin* bin2 )
@@ -212,7 +214,7 @@ void K3b::ExternalProgram::addBin( K3b::ExternalBin* bin )
 
         // the first bin in the list is always the one used
         // so we default to using the newest one
-        qSort( d->bins.begin(), d->bins.end(), compareVersions );
+        std::sort( d->bins.begin(), d->bins.end(), compareVersions );
 
         const ExternalBin* defBin = defaultBin();
         if ( !defBin || bin->version() > defBin->version() ) {
