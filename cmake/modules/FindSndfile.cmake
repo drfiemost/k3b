@@ -21,9 +21,11 @@ endif ( SNDFILE_INCLUDE_DIR AND SNDFILE_LIBRARIES )
 IF (NOT WIN32)
   # use pkg-config to get the directories and then use these values
   # in the FIND_PATH() and FIND_LIBRARY() calls
-  include(FindPkgConfig)
+  find_package(PkgConfig QUIET)
 
-  pkg_check_modules(_pc_SNDFILE sndfile)
+  if(PKG_CONFIG_FOUND)
+    pkg_check_modules(_pc_SNDFILE sndfile)
+  endif()
 ENDIF (NOT WIN32)
 
 
