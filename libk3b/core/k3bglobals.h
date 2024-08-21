@@ -136,6 +136,7 @@ namespace K3b {
      *
      * \deprecated Use KDiskFreeSpaceInfo
      */
+    [[deprecated("Use KDiskFreeSpaceInfo")]]
     LIBK3B_EXPORT bool kbFreeOnFs( const QString& path, unsigned long& size, unsigned long& avail );
 
     /**
