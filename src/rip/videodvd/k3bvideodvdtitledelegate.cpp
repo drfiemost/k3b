@@ -22,7 +22,7 @@
 #include <QPixmap>
 #include <QStyle>
 #include <QStyleOptionButton>
-#include <QStyleOptionViewItemV4>
+#include <QStyleOptionViewItem>
 
 namespace K3b {
     
@@ -47,7 +47,7 @@ void VideoDVDTitleDelegate::paint( QPainter* painter, const QStyleOptionViewItem
     painter->save();
     
     QStyle& style = *QApplication::style();
-    QStyleOptionViewItemV4 option = opt;
+    QStyleOptionViewItem option = opt;
     initStyleOption( &option, index );
     style.drawControl( QStyle::CE_ItemViewItem, &option, painter );
     
@@ -204,11 +204,11 @@ void VideoDVDTitleDelegate::initStyleOption( QStyleOptionViewItem* option, const
 {
     if( index.isValid() && index.column() == VideoDVDTitleModel::TitleColumn )
     {
-        if( QStyleOptionViewItemV4 *v4 = qstyleoption_cast<QStyleOptionViewItemV4 *>(option) ) {
+        if( QStyleOptionViewItem *v4 = qstyleoption_cast<QStyleOptionViewItem *>(option) ) {
             v4->index = index;
             QVariant value = index.data( Qt::CheckStateRole );
             if( value.isValid() && !value.isNull() ) {
-                v4->features |= QStyleOptionViewItemV2::HasCheckIndicator;
+                v4->features |= QStyleOptionViewItem::HasCheckIndicator;
                 v4->checkState = static_cast<Qt::CheckState>( value.toInt() );
             }
         }
