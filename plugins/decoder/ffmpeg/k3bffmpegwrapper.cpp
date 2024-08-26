@@ -150,6 +150,14 @@ bool K3bFFMpegFile::open()
         return false;
     }
 
+    d->sampleFormat = d->codecContext->sample_fmt;
+#if LIBAVCODEC_VERSION_MAJOR < 61
+    d->isSpacious = ::av_sample_fmt_is_planar(d->sampleFormat) &&
+        d->codecContext->channels > 1;
+#else
+#pragma Unimplemented
+    d->isSpacious = ::av_sample_fmt_is_planar(d->sampleFormat);
+#endif
     d->packet = ::av_packet_alloc();
 
     // dump some debugging info
@@ -194,7 +202,12 @@ int K3bFFMpegFile::sampleRate() const
 
 int K3bFFMpegFile::channels() const
 {
+#if LIBAVCODEC_VERSION_MAJOR < 61
     return d->codecContext->channels;
+#else
+#pragma Unimplemented
+    return 0;
+#endif
 }
 
 
@@ -263,7 +276,7 @@ int K3bFFMpegFile::read( char* buf, int bufLen )
         return ret;
     }
 
-    int len = qMin(bufLen, ret);
+    int len = std::min(bufLen, ret);
     ::memcpy( buf, d->outputBufferPos, len );
 
     // TODO: only swap if needed
@@ -330,7 +343,7 @@ int K3bFFMpegFile::fillOutputBuffer()
                             );
                         }
                     }
-                } else {
+                } else if ( d->sampleFormat == AV_SAMPLE_FMT_S16P ) {
                     for(int sample = 0; sample < nb_s; sample++) {
                         for(int ch = 0; ch < nb_ch; ch++) {
                             ::memcpy(
@@ -340,7 +353,13 @@ int K3bFFMpegFile::fillOutputBuffer()
                             );
                         }
                     }
+                } else {
+                    qDebug() << "(K3bFFMpegFile) some planar formats are not supported yet";
+                    return -1;
                 }
+            } else {
+                qDebug() << "(K3bFFMpegFile) non planar and monophonic audio support is not implemented";
+                return -1;
             }
         } else {
             // make sure we have data to decode
