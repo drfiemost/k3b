@@ -25,7 +25,7 @@ class QModelIndex;
 class QPushButton;
 class QTabWidget;
 class QTreeView;
-class KEditListBox;
+class KEditListWidget;
 
 namespace K3b {
     class ExternalBinManager;
@@ -58,7 +58,7 @@ namespace K3b {
         QTabWidget* m_mainTabWidget;
         QTreeView* m_programView;
         QTreeView* m_parameterView;
-        KEditListBox* m_searchPathBox;
+        KEditListWidget* m_searchPathBox;
 
         QPushButton* m_rescanButton;
     };

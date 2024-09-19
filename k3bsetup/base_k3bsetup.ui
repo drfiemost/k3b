@@ -171,13 +171,16 @@
            </attribute>
            <layout class="QVBoxLayout">
             <item>
-             <widget class="KEditListBox" name="m_editSearchPath">
+             <widget class="QGroupBox" name="groupBox4">
               <property name="title">
                <string>Search Path</string>
               </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
+              <layout class="QVBoxLayout">
+               <item>
+                <widget class="KEditListWidget" name="m_editSearchPath">
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
@@ -204,9 +207,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
@@ -215,7 +218,7 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="local">keditlistbox.h</include>
+  <include location="local">keditlistwidget.h</include>
   <include location="local">klineedit.h</include>
  </includes>
  <resources/>

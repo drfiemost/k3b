@@ -32,10 +32,11 @@
 #include <QToolTip>
 #include <QTreeView>
 #include <QVBoxLayout>
+#include <QGroupBox>
 
 #include <KDebug>
 #include <KDialog>
-#include <KEditListBox>
+#include <KEditListWidget>
 #include <KGlobalSettings>
 #include <KLocale>
 
@@ -110,14 +111,19 @@ K3b::ExternalBinWidget::ExternalBinWidget( K3b::ExternalBinManager* manager, QWi
     // setup search path tab
     // ------------------------------------------------------------
     QWidget* searchPathTab = new QWidget( m_mainTabWidget );
-    m_searchPathBox = new KEditListBox( i18n("Search Path"), searchPathTab );
+    m_searchPathBox = new KEditListWidget( searchPathTab );
     m_searchPathBox->setCheckAtEntering( true );
     QLabel* hintLabel = new QLabel( i18n("<qt><b>Hint:</b> to force K3b to use another than the "
                                          "default name for the executable specify it in the search path.</qt>"),
                                     searchPathTab );
     hintLabel->setWordWrap( true );
+    QGroupBox* searchPathGroupBox = new QGroupBox( i18n("Search Path") );
+    QVBoxLayout* searchPathBoxLayout = new QVBoxLayout();
+    searchPathBoxLayout->addWidget( m_searchPathBox );
+    searchPathGroupBox->setLayout( searchPathBoxLayout );
+
     QVBoxLayout* searchPathTabLayout = new QVBoxLayout( searchPathTab );
-    searchPathTabLayout->addWidget( m_searchPathBox, 1 );
+    searchPathTabLayout->addWidget( searchPathGroupBox, 1 );
     searchPathTabLayout->addWidget( hintLabel );
 
     m_mainTabWidget->addTab( searchPathTab, i18n("Search Path") );

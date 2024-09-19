@@ -36,7 +36,6 @@
 #include <KConfig>
 #include <KDebug>
 #include <kdeversion.h>
-#include <KEditListBox>
 #include <KPluginFactory>
 #include <KGlobal>
 #include <KLocale>
