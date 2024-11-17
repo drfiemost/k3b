@@ -17,7 +17,6 @@
 #define _K3B_PLUGIN_H_
 
 #include <qobject.h>
-#include <kgenericfactory.h>
 #include "k3b_export.h"
 
 #include <KPluginInfo>

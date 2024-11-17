@@ -34,6 +34,7 @@
 
 // qt includes
 #include <QCheckBox>
+#include <QGroupBox>
 #include <QDir>
 #include <QFileInfo>
 #include <QGridLayout>
