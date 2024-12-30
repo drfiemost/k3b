@@ -182,7 +182,7 @@ QSize K3b::AudioEditorWidget::minimumSizeHint() const
 
     int maxWidth = QApplication::desktop()->width()*2/3;
     int wantedWidth = 2*d->margin + 2*frameWidth() + (d->length.totalFrames()/75/60 + 1) * fontMetrics().width( "000" );
-    return QSize( qMin( maxWidth, wantedWidth ),
+    return QSize( std::min( maxWidth, wantedWidth ),
                   2*d->margin + 12 + 6 /*12 for the tickmarks and 6 for the markers */ + fontMetrics().height() + 2*frameWidth() );
 }
 
@@ -393,7 +393,7 @@ void K3b::AudioEditorWidget::setMaxNumberOfMarkers( int i )
     d->maxMarkers = i;
 
     // remove last markers
-    while( d->markers.count() > qMax( 1, d->maxMarkers ) ) {
+    while( d->markers.count() > std::max( 1, d->maxMarkers ) ) {
         removeMarker( d->markers.last().id );
     }
 }
@@ -437,8 +437,8 @@ bool K3b::AudioEditorWidget::moveMarker( int identifier, const K3b::Msf& pos )
     if( pos < d->length )
         if( Marker* m = getMarker( identifier ) ) {
             QRect rect = contentsRect();
-            rect.setLeft( qMin( msfToPos( pos ), msfToPos( m->pos ) ) );
-            rect.setRight( qMax( msfToPos( pos ), msfToPos( m->pos ) ) );
+            rect.setLeft( std::min( msfToPos( pos ), msfToPos( m->pos ) ) );
+            rect.setRight( std::max( msfToPos( pos ), msfToPos( m->pos ) ) );
 
             m->pos = pos;
 
@@ -692,7 +692,7 @@ void K3b::AudioEditorWidget::mouseMoveEvent( QMouseEvent* e )
     if( e->buttons() & Qt::LeftButton ) {
         if( Range* draggedRange = getRange( d->draggedRangeId ) ) {
             // determine the position the range's end was dragged to and its other end
-            K3b::Msf msfPos = qMax( K3b::Msf(), qMin( posToMsf( e->pos().x() ), d->length-1 ) );
+            K3b::Msf msfPos = std::max( K3b::Msf(), std::min( posToMsf( e->pos().x() ), d->length-1 ) );
             K3b::Msf otherEnd = ( d->draggingRangeEnd ? draggedRange->start : draggedRange->end );
 
             // move it to the new pos
@@ -863,7 +863,7 @@ K3b::AudioEditorWidget::Marker* K3b::AudioEditorWidget::findMarker( const QPoint
 K3b::Msf K3b::AudioEditorWidget::posToMsf( int p ) const
 {
     int w = contentsRect().width() - 2*d->margin;
-    int x = qMin( p-frameWidth()-d->margin, w );
+    int x = std::min( p-frameWidth()-d->margin, w );
     return ( (int)((double)(d->length.lba()-1) / (double)w * (double)x) );
 }
 
@@ -873,7 +873,7 @@ int K3b::AudioEditorWidget::msfToPos( const K3b::Msf& msf ) const
 {
     int w = contentsRect().width() - 2*d->margin;
     int pos = (int)((double)w / (double)(d->length.lba()-1) * (double)msf.lba());
-    return frameWidth() + d->margin + qMin( pos, w-1 );
+    return frameWidth() + d->margin + std::min( pos, w-1 );
 }
 
 

@@ -297,7 +297,7 @@ int K3b::AudioDecoder::decode( char* _data, int maxLen )
 
 
     // clear out the decoding buffer
-    read = qMin( maxLen, d->decodingBufferFill );
+    read = std::min( maxLen, d->decodingBufferFill );
     ::memcpy( _data, d->decodingBufferPos, read );
     d->decodingBufferPos += read;
     d->decodingBufferFill -= read;
@@ -457,7 +457,7 @@ bool K3b::AudioDecoder::seek( const K3b::Msf& pos )
         kDebug() << "(K3b::AudioDecoder) seeking " << bytesToDecode << " bytes.";
         char buffi[10*2352];
         while( bytesToDecode > 0 ) {
-            int read = decode( buffi, qMin(( qint64 )( 10*2352 ), bytesToDecode) );
+            int read = decode( buffi, std::min(( qint64 )( 10*2352 ), bytesToDecode) );
             if( read <= 0 )
                 return false;
 

@@ -251,7 +251,7 @@ void K3b::VideoDVDTitleTranscodingJob::startTranscode( int pass )
         *d->process << "--log_no_color";
 
     // we only need 100 steps, but to make sure we use 150
-    int progressRate = qMax( 1, ( int )m_dvd[m_titleNumber-1].playbackTime().totalFrames()/150 );
+    int progressRate = std::max( 1, ( int )m_dvd[m_titleNumber-1].playbackTime().totalFrames()/150 );
     if ( d->usedTranscodeBin->version().simplify() >= K3b::Version( 1, 1, 0 ) )
         *d->process << "--progress_meter" << "2" << "--progress_rate" << QString::number(progressRate);
     else
@@ -505,7 +505,7 @@ void K3b::VideoDVDTitleTranscodingJob::setClipping( int top, int left, int botto
     //
     // transcode seems unable to handle different clipping values for left and right
     //
-    m_clippingLeft = m_clippingRight = qMin( m_clippingRight, m_clippingLeft );
+    m_clippingLeft = m_clippingRight = std::min( m_clippingRight, m_clippingLeft );
 }
 
 

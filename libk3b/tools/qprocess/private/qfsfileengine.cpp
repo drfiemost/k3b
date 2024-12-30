@@ -614,7 +614,7 @@ qint64 QFSFileEnginePrivate::readFdFh(char *data, qint64 len)
             if (retry == 1)
                 retry = 2;
 
-            bytesToRead = qMin<qint64>(4096, len - read);
+            bytesToRead = std::min<qint64>(4096, len - read);
             do {
                 readBytes = fread(data + read, 1, size_t(bytesToRead), fh);
             } while (readBytes == 0 && !feof(fh) && errno == EINTR);
@@ -648,7 +648,7 @@ qint64 QFSFileEnginePrivate::readFdFh(char *data, qint64 len)
         // Read in blocks of 4k to avoid platform limitations (Windows
         // commonly bails out if you read or write too large blocks at once).
         do {
-            qint64 bytesToRead = qMin<qint64>(4096, len - read);
+            qint64 bytesToRead = std::min<qint64>(4096, len - read);
             do {
                 result = QT_READ(fd, data + read, int(bytesToRead));
             } while (result == -1 && errno == EINTR);
@@ -751,7 +751,7 @@ qint64 QFSFileEnginePrivate::writeFdFh(const char *data, qint64 len)
     do {
         // Write blocks of 4k to avoid platform limitations (Windows commonly
         // bails out if you read or write too large blocks at once).
-        qint64 bytesToWrite = qMin<qint64>(4096, len - written);
+        qint64 bytesToWrite = std::min<qint64>(4096, len - written);
         if (fh) {
             do {
                 // Buffered stdlib mode.

@@ -3237,7 +3237,7 @@ int K3b::Device::Device::determineMaximalWriteSpeed() const
     QList<int> list = determineSupportedWriteSpeeds();
     if( !list.isEmpty() ) {
         for( QList<int>::const_iterator it = list.constBegin(); it != list.constEnd(); ++it )
-            ret = qMax( ret, *it );
+            ret = std::max( ret, *it );
     }
 
     if( ret > 0 )

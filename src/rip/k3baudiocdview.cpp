@@ -349,7 +349,7 @@ void K3b::AudioCdView::slotEditTrackCddb()
         grid->setRowStretch( 4, 1 );
 
         dialog.setMainWidget(w);
-        dialog.resize( qMax( qMax(dialog.sizeHint().height(), dialog.sizeHint().width()), 300), dialog.sizeHint().height() );
+        dialog.resize( std::max( std::max(dialog.sizeHint().height(), dialog.sizeHint().width()), 300), dialog.sizeHint().height() );
 
         if( dialog.exec() == QDialog::Accepted ) {
             d->trackModel->setData( d->trackModel->index( trackIndex, 0 ), editTitle->text(), K3b::AudioTrackModel::TitleRole );
@@ -417,7 +417,7 @@ void K3b::AudioCdView::slotEditAlbumCddb()
     grid->setRowStretch( 7, 1 );
 
     dialog.setMainWidget(w);
-    dialog.resize( qMax( qMax(dialog.sizeHint().height(), dialog.sizeHint().width()), 300), dialog.sizeHint().height() );
+    dialog.resize( std::max( std::max(dialog.sizeHint().height(), dialog.sizeHint().width()), 300), dialog.sizeHint().height() );
 
     if( dialog.exec() == QDialog::Accepted ) {
         KCDDB::CDInfo cddbInfo = d->trackModel->cddbInfo();

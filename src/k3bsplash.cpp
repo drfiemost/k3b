@@ -115,7 +115,7 @@ void K3b::Splash::addInfo( const QString& s )
 //   QRect rect3 = fm.boundingRect( line3 );
 
 //   int textH = rect1.height() + rect2.height() + rect3.height() + 2 * fm.leading() + 2 + rect2.height() /*hack because the boundingRect method seems not to work properly! :-(*/;
-//   int textW = qMax( rect1.width(), qMax( rect2.width(), rect3.width() ) ) + 2;
+//   int textW = std::max( rect1.width(), std::max( rect2.width(), rect3.width() ) ) + 2;
 
 //   int startX = 10;
 //   int startY = height() - 10 - textH;

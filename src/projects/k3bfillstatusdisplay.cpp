@@ -259,14 +259,14 @@ void K3b::FillStatusDisplayWidget::paintEvent( QPaintEvent* )
 
         // make sure the text does not cross the medium size marker
         if( docSizeTextPos <= mediumSizeMarkerPos && mediumSizeMarkerPos <= docSizeTextPos + docSizeTextLength )
-            docSizeTextPos = qMax( crect.left() + 5, mediumSizeMarkerPos - docSizeTextLength - 5 );
+            docSizeTextPos = std::max( crect.left() + 5, mediumSizeMarkerPos - docSizeTextLength - 5 );
     }
     // ====================================================================================
 
     // draw the over size text
     // ====================================================================================
     QFont fnt(font());
-    fnt.setPointSize( qMax( 8, fnt.pointSize()-4 ) );
+    fnt.setPointSize( std::max( 8, fnt.pointSize()-4 ) );
     fnt.setBold(false);
 
     QRect overSizeTextRect( rect() );
@@ -281,7 +281,7 @@ void K3b::FillStatusDisplayWidget::paintEvent( QPaintEvent* )
 
     // make sure the two text do not overlap (this does not cover all cases though)
     if( overSizeTextRect.left() < docSizeTextPos + docSizeTextLength )
-        docSizeTextPos = qMax( crect.left() + 5, qMin( overSizeTextRect.left() - docSizeTextLength - 5, mediumSizeMarkerPos - docSizeTextLength - 5 ) );
+        docSizeTextPos = std::max( crect.left() + 5, std::min( overSizeTextRect.left() - docSizeTextLength - 5, mediumSizeMarkerPos - docSizeTextLength - 5 ) );
 
     QRect docTextRect( rect() );
     docTextRect.setLeft( docSizeTextPos );

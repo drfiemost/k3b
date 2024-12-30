@@ -223,7 +223,7 @@ qint64 K3b::FileSplitter::readData( char *data, qint64 maxlen )
 
 qint64 K3b::FileSplitter::writeData( const char *data, qint64 len )
 {
-    qint64 max = qMin( len, d->maxFileSize - d->currentFilePos );
+    qint64 max = std::min( len, d->maxFileSize - d->currentFilePos );
 
     qint64 r = d->file.write( data, max );
 

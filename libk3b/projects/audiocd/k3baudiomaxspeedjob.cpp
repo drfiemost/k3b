@@ -173,7 +173,7 @@ bool K3b::AudioMaxSpeedJob::run()
         }
         else if( speed > 0 ) {
             // update the max speed
-            d->maxSpeed = qMin( d->maxSpeed, speed );
+            d->maxSpeed = std::min( d->maxSpeed, speed );
         }
 
         it.next();

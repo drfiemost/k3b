@@ -807,7 +807,7 @@ qint64 QFSFileEnginePrivate::nativeRead(char *data, qint64 maxlen)
 
     qint64 totalRead = 0;
     do {
-        DWORD blockSize = qMin<DWORD>(bytesToRead, maxBlockSize);
+        DWORD blockSize = std::min<DWORD>(bytesToRead, maxBlockSize);
         DWORD bytesRead;
         if (!ReadFile(fileHandle, data + totalRead, blockSize, &bytesRead, NULL)) {
             if (totalRead == 0) {
@@ -869,7 +869,7 @@ qint64 QFSFileEnginePrivate::nativeWrite(const char *data, qint64 len)
 
     qint64 totalWritten = 0;
     do {
-        DWORD blockSize = qMin<DWORD>(bytesToWrite, maxBlockSize);
+        DWORD blockSize = std::min<DWORD>(bytesToWrite, maxBlockSize);
         DWORD bytesWritten;
         if (!WriteFile(fileHandle, data + totalWritten, blockSize, &bytesWritten, NULL)) {
             if (totalWritten == 0) {
@@ -2015,7 +2015,7 @@ bool QFSFileEngine::setSize(qint64 size)
         qint64 currentPos = pos();
 
         if (seek(size) && SetEndOfFile(fh)) {
-            seek(qMin(currentPos, size));
+            seek(std::min(currentPos, size));
             return true;
         }
 

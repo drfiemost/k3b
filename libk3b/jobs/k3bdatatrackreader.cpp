@@ -293,7 +293,7 @@ bool K3b::DataTrackReader::run()
     int bufferLen = s_bufferSizeSectors*d->usedSectorSize;
     while( !canceled() && currentSector <= d->lastSector ) {
 
-        int maxReadSectors = qMin( bufferLen/d->usedSectorSize, d->lastSector.lba()-currentSector.lba()+1 );
+        int maxReadSectors = std::min( bufferLen/d->usedSectorSize, d->lastSector.lba()-currentSector.lba()+1 );
 
         int readSectors = read( buffer,
                                 currentSector.lba(),

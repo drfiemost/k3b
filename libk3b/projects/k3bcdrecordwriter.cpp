@@ -683,7 +683,7 @@ void K3b::CdrecordWriter::slotStdLine( const QString& line )
         const int pos = line.indexOf( "at speed" );
         const int pos2 = line.indexOf( "in", pos+9 );
         const int speed( double( K3b::speedMultiplicatorForMediaType( d->burnedMediaType ) ) * line.mid( pos+9, pos2-pos-10 ).toDouble() );  // cdrecord-dvd >= 2.01a25 uses 8.0 and stuff
-        if( speed > 0 && double( qAbs( speed - d->usedSpeed ) ) > 0.5*double( K3b::speedMultiplicatorForMediaType( d->burnedMediaType ) ) ) {
+        if( speed > 0 && double( std::abs( speed - d->usedSpeed ) ) > 0.5*double( K3b::speedMultiplicatorForMediaType( d->burnedMediaType ) ) ) {
             // xgettext: no-c-format
             emit infoMessage( i18n("Medium or burner does not support writing at %1x speed", formatWritingSpeedFactor( d->usedSpeed, d->burnedMediaType ) ),
                               K3b::Job::MessageWarning );

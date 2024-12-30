@@ -114,8 +114,8 @@ void K3b::JobProgressOSD::reposition()
     int textWidth = fontMetrics().width( m_text );
 
     // do not change the size every time the text changes, just in case we are too small
-    QSize newSize( qMax( qMax( 2*margin + icon.width() + margin + textWidth, 100 ), width() ),
-                   qMax( 2*margin + icon.height(), 2*margin + fontMetrics().height()*2 ) );
+    QSize newSize( std::max( std::max( 2*margin + icon.width() + margin + textWidth, 100 ), width() ),
+                   std::max( 2*margin + icon.height(), 2*margin + fontMetrics().height()*2 ) );
 
     QPoint newPos = m_position;
     const QRect screen = QApplication::desktop()->screenGeometry( m_screen );
@@ -155,8 +155,8 @@ void K3b::JobProgressOSD::paintEvent( QPaintEvent* )
         int textWidth = fontMetrics().width( m_text );
 
         // do not change the size every time the text changes, just in case we are too small
-        QSize newSize( qMax( qMax( 2*margin + icon.width() + margin + textWidth, 100 ), width() ),
-                       qMax( 2*margin + icon.height(), 2*margin + fontMetrics().height()*2 ) );
+        QSize newSize( std::max( std::max( 2*margin + icon.width() + margin + textWidth, 100 ), width() ),
+                       std::max( 2*margin + icon.height(), 2*margin + fontMetrics().height()*2 ) );
 
         QPainter p( this );
 

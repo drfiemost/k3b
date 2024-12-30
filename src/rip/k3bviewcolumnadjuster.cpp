@@ -63,7 +63,7 @@ int K3b::ViewColumnAdjuster::Private::columnSizeHint( int col )
         w += 10; // HACK
     }
     if ( !view->header()->isHidden() ) {
-        w = qMax( w, view->header()->sectionSizeHint( col ) );
+        w = std::max( w, view->header()->sectionSizeHint( col ) );
     }
     return w;
 }
@@ -186,13 +186,13 @@ void K3b::ViewColumnAdjuster::adjustColumns()
         for ( int i = 0; i < otherCols.count(); ++i ) {
             kDebug() << i << otherCols[i];
             int sh = d->columnSizeHint( otherCols[i] ) + columnMargin( otherCols[i] );
-            otherColSizes << qMin( sh, max );
-            xx += qMin( sh, max );
+            otherColSizes << std::min( sh, max );
+            xx += std::min( sh, max );
         }
 
         // do we have something left
         for ( int i = 0; i < otherCols.count(); ++i ) {
-            d->view->header()->resizeSection( otherCols[i], qMax( 0, otherColSizes[i] + ( widthLeft-xx )/otherColSizes.count() ) );
+            d->view->header()->resizeSection( otherCols[i], std::max( 0, otherColSizes[i] + ( widthLeft-xx )/otherColSizes.count() ) );
         }
     }
 }

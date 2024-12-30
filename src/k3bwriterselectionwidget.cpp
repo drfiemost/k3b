@@ -634,7 +634,7 @@ void K3b::WriterSelectionWidget::slotManualSpeed()
                                              &ok,
                                              this ) * speedFactor;
     if( ok ) {
-        writerDevice()->setMaxWriteSpeed( qMax( newSpeed, writerDevice()->maxWriteSpeed() ) );
+        writerDevice()->setMaxWriteSpeed( std::max( newSpeed, writerDevice()->maxWriteSpeed() ) );
         if ( haveSpeeds ) {
             insertSpeedItem( newSpeed );
         }

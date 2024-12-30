@@ -108,7 +108,7 @@ QSize K3b::FlatButton::sizeHint() const
 {
     // height: pixmap + spacing + font height + frame width
     // width: max( pixmap, text) + frame width
-    return QSize( qMax( iconSize().width(), fontMetrics().width( text() ) ) + ( MARGIN_SIZE + FRAME_WIDTH )*2,
+    return QSize( std::max( iconSize().width(), fontMetrics().width( text() ) ) + ( MARGIN_SIZE + FRAME_WIDTH )*2,
                   iconSize().height() + fontMetrics().height() + ICON_LABEL_SPACE + ( MARGIN_SIZE + FRAME_HEIGHT )*2 );
 }
 
@@ -123,7 +123,7 @@ void K3b::FlatButton::paintEvent( QPaintEvent* event )
     QRect rect = contentsRect();
 
     if( !icon().isNull() ) {
-        int pixX = rect.left() + qMax( 0, (rect.width() - iconSize().width()) / 2 );
+        int pixX = rect.left() + std::max( 0, (rect.width() - iconSize().width()) / 2 );
         int pixY = rect.top();
         p.drawPixmap( pixX, pixY, icon().pixmap( iconSize() ) );
         p.drawText( rect, Qt::AlignBottom | Qt::AlignHCenter | Qt::TextHideMnemonic, text() );

@@ -133,7 +133,7 @@ static void calculateButtons( int width, int numActions, int buttonWidth, int& c
 {
     // always try to avoid horizontal scrollbars
     int wa = width - 2*MARGIN;
-    cols = qMax( 1, qMin( wa / (buttonWidth+BUTTON_SPACING), numActions ) );
+    cols = std::max( 1, std::min( wa / (buttonWidth+BUTTON_SPACING), numActions ) );
     rows = numActions/cols;
     int over = numActions%cols;
     if( over ) {
@@ -263,7 +263,7 @@ void K3b::WelcomeWidget::slotThemeChanged()
     m_header->setHtml( "<html><body align=\"center\">" + i18n("Welcome to K3b &ndash; The CD, DVD, and Blu-ray Kreator") + "</body></html>" );
     m_infoText->setHtml( "<html><body align=\"center\">" + i18n("K3b %1 Copyright &copy; 1998&ndash;2010 K3b developers")
                          .arg(KGlobal::mainComponent().aboutData()->version()) + "</body></html>" );
-    setMinimumWidth( 2*MARGIN + qMax(( int )m_header->idealWidth(), m_buttonSize.width()) );
+    setMinimumWidth( 2*MARGIN + std::max(( int )m_header->idealWidth(), m_buttonSize.width()) );
     updateBgPix();
     update();
 }
@@ -308,7 +308,7 @@ void K3b::WelcomeWidget::paintEvent( QPaintEvent* )
         p.drawTiledPixmap( rect(), m_bgPixmap );
 
         // rect around the header
-        QRect rect( 10, 10, qMax( ( int )m_header->idealWidth() + MARGIN, width() - MARGIN ), ( int )m_header->size().height() + MARGIN );
+        QRect rect( 10, 10, std::max( ( int )m_header->idealWidth() + MARGIN, width() - MARGIN ), ( int )m_header->size().height() + MARGIN );
         p.fillRect( rect, theme->backgroundColor() );
         p.drawRect( rect );
 
@@ -317,7 +317,7 @@ void K3b::WelcomeWidget::paintEvent( QPaintEvent* )
 
         // draw the header text
         int pos = MARGIN;
-        pos += qMax( (width()-2*MARGIN-( int )m_header->idealWidth())/2, 0 );
+        pos += std::max( (width()-2*MARGIN-( int )m_header->idealWidth())/2, 0 );
         p.save();
         p.translate( pos, MARGIN );
         m_header->drawContents( &p );
@@ -326,7 +326,7 @@ void K3b::WelcomeWidget::paintEvent( QPaintEvent* )
         // draw the info box
         //    int boxWidth = MARGIN + m_infoText->widthUsed();
         int boxHeight = 10 + ( int )m_infoText->size().height();
-        QRect infoBoxRect( 10/*qMax( (width()-MARGIN-m_infoText->widthUsed())/2, 10 )*/,
+        QRect infoBoxRect( 10/*std::max( (width()-MARGIN-m_infoText->widthUsed())/2, 10 )*/,
                            height()-10-boxHeight,
                            width()-MARGIN/*boxWidth*/,
                            boxHeight );

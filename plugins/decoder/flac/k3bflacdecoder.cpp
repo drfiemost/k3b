@@ -345,7 +345,7 @@ int K3bFLACDecoder::decodeInternal( char* _data, int maxLen )
 #endif
 
     bytesAvailable = d->internalBuffer->size() - d->internalBuffer->pos();
-    bytesToCopy = qMin(maxLen, bytesAvailable);
+    bytesToCopy = std::min(maxLen, bytesAvailable);
     bytesCopied = (int)d->internalBuffer->read(_data, bytesToCopy);
 
     if(bytesCopied == bytesAvailable) {

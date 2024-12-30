@@ -44,7 +44,7 @@ QStringList audioStreamString( const K3b::VideoDVD::Title& title )
     QStringList list;
 
     if( title.numAudioStreams() > 0 ) {
-        for( unsigned int i = 0; i < qMin( title.numAudioStreams(), MAX_LINES ); ++i ) {
+        for( unsigned int i = 0; i < std::min( title.numAudioStreams(), MAX_LINES ); ++i ) {
             list << QString::number(i+1) + ": "
                 + i18n("%1 %2Ch (%3)",
                         K3b::VideoDVD::audioFormatString( title.audioStream(i).format() ),
@@ -66,7 +66,7 @@ QStringList audioStreamString( const K3b::VideoDVD::Title& title )
 QString audioStreamStringToolTip( const K3b::VideoDVD::Title& title )
 {
     QString s = "<p><b>" + i18n("Audio Streams") + "</b><p>";
-    for( unsigned int i = 0; i < qMin( title.numAudioStreams(), TOOLTIP_MAX_LINES ); ++i ) {
+    for( unsigned int i = 0; i < std::min( title.numAudioStreams(), TOOLTIP_MAX_LINES ); ++i ) {
         if( i > 0 )
             s += "<br>";
         s += QString::number(i+1) + ": "
@@ -92,7 +92,7 @@ QStringList subpictureStreamString( const K3b::VideoDVD::Title& title )
     QStringList list;
 
     if( title.numSubPictureStreams() > 0 ) {
-        for( unsigned int i = 0; i < qMin( title.numSubPictureStreams(), MAX_LINES ); ++i ) {
+        for( unsigned int i = 0; i < std::min( title.numSubPictureStreams(), MAX_LINES ); ++i ) {
             list << QString::number(i+1) + ": "
                 + QString("%1 (%2)")
                 .arg( title.subPictureStream(i).codeMode() == K3b::VideoDVD::SUBPIC_CODE_MODE_RLE
@@ -115,7 +115,7 @@ QStringList subpictureStreamString( const K3b::VideoDVD::Title& title )
 QString subpictureStreamStringToolTip( const K3b::VideoDVD::Title& title )
 {
     QString s = "<p><b>" + i18n("Subpicture Streams") + "</b><p>";
-    for( unsigned int i = 0; i < qMin( title.numSubPictureStreams(), TOOLTIP_MAX_LINES ); ++i ) {
+    for( unsigned int i = 0; i < std::min( title.numSubPictureStreams(), TOOLTIP_MAX_LINES ); ++i ) {
         if( i > 0 )
             s += "<br>";
         s += QString::number(i+1) + ": "

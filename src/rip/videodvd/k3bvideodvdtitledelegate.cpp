@@ -95,7 +95,7 @@ void VideoDVDTitleDelegate::paint( QPainter* painter, const QStyleOptionViewItem
         }
         else
         {
-            preview = KIcon( "image-missing" ).pixmap( qMin( option.rect.width()-margin,
+            preview = KIcon( "image-missing" ).pixmap( std::min( option.rect.width()-margin,
                                                              option.rect.height()-margin ) );
         }
         style.drawItemPixmap( painter, option.rect, Qt::AlignCenter, preview );
@@ -165,13 +165,13 @@ QSize VideoDVDTitleDelegate::sizeHint( const QStyleOptionViewItem& option, const
         QFontMetrics boldMetrics( bold );
         QSize titleSize = boldMetrics.size( 0, index.data().toString() );
         QSize chaptersSize = option.fontMetrics.size( 0, index.data( VideoDVDTitleModel::ChaptersRole ).toString() );
-        return QSize( qMax( titleSize.width(), chaptersSize.width() ) + checkWidth + margin + option.fontMetrics.averageCharWidth(),
+        return QSize( std::max( titleSize.width(), chaptersSize.width() ) + checkWidth + margin + option.fontMetrics.averageCharWidth(),
                         titleSize.height() + titleSize.height() + 2*margin );
     }
     else if( index.column() == VideoDVDTitleModel::VideoColumn ) {
         QSize videoSize = option.fontMetrics.size( 0, index.data().toString() );
         QSize ratioSize = option.fontMetrics.size( 0, index.data( VideoDVDTitleModel::AspectRatioRole ).toString() );
-        return QSize( qMax( videoSize.width(), ratioSize.width() ) + 2*margin + option.fontMetrics.averageCharWidth(),
+        return QSize( std::max( videoSize.width(), ratioSize.width() ) + 2*margin + option.fontMetrics.averageCharWidth(),
                         videoSize.height() + videoSize.height() + 2*margin );
     }
     else if( index.column() == VideoDVDTitleModel::AudioColumn ) {
@@ -179,7 +179,7 @@ QSize VideoDVDTitleDelegate::sizeHint( const QStyleOptionViewItem& option, const
         Q_FOREACH( const QString& line, index.data( VideoDVDTitleModel::AudioStreamsRole ).toStringList() )
         {
             QSize lineSize = option.fontMetrics.size( 0, line );
-            overallSize.setWidth( qMax( overallSize.width(), lineSize.width() ) );
+            overallSize.setWidth( std::max( overallSize.width(), lineSize.width() ) );
             overallSize.setHeight( overallSize.height() + lineSize.height() );
         }
         return overallSize + QSize( 2*margin + option.fontMetrics.averageCharWidth(), 2*margin );
@@ -189,7 +189,7 @@ QSize VideoDVDTitleDelegate::sizeHint( const QStyleOptionViewItem& option, const
         Q_FOREACH( const QString& line, index.data( VideoDVDTitleModel::SubpictureStreamsRole ).toStringList() )
         {
             QSize lineSize = option.fontMetrics.size( 0, line );
-            overallSize.setWidth( qMax( overallSize.width(), lineSize.width() ) );
+            overallSize.setWidth( std::max( overallSize.width(), lineSize.width() ) );
             overallSize.setHeight( overallSize.height() + lineSize.height() );
         }
         return overallSize + QSize( 2*margin + option.fontMetrics.averageCharWidth(), 2*margin );

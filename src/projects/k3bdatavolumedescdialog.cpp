@@ -60,7 +60,7 @@ K3b::DataVolumeDescDialog::DataVolumeDescDialog( QWidget* parent )
 
     // give ourselves a reasonable size
     QSize s = sizeHint();
-    s.setWidth( qMax(s.width(), 300) );
+    s.setWidth( std::max(s.width(), 300) );
     resize( s );
 }
 

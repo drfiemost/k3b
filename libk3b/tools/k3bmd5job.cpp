@@ -184,7 +184,7 @@ void K3b::Md5Job::slotUpdate()
         // determine bytes to read
         qint64 readSize = Private::BUFFERSIZE;
         if( d->maxSize > 0 )
-            readSize = qMin( readSize, d->maxSize - d->readData );
+            readSize = std::min( readSize, d->maxSize - d->readData );
 
         if( readSize <= 0 ) {
             //      kDebug() << "(K3b::Md5Job) reached max size of " << d->maxSize << ". Stopping.";
@@ -212,13 +212,13 @@ void K3b::Md5Job::slotUpdate()
                 // Only the last sector may not be used completely.
                 //
                 qint64 sector = d->readData/2048;
-                qint64 sectorCnt = qMax( readSize/2048, ( qint64 )1 );
+                qint64 sectorCnt = std::max( readSize/2048, ( qint64 )1 );
                 read = -1;
                 if( d->device->read10( reinterpret_cast<unsigned char*>(d->data),
                                        sectorCnt*2048,
                                        sector,
                                        sectorCnt ) )
-                    read = qMin( readSize, sectorCnt*2048 );
+                    read = std::min( readSize, sectorCnt*2048 );
             }
 
             //
