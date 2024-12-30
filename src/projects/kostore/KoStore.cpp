@@ -123,6 +123,7 @@ KoStore* KoStore::createStore( QIODevice *device, Mode mode, const QByteArray & 
   case Directory:
     kError(s_area) << "Can't create a Directory store for a memory buffer!" << endl;
     // fallback
+    [[fallthrough]];
   case Zip:
 #ifdef QCA2
     if( automatic && mode == Read ) {

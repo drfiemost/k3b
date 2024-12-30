@@ -253,6 +253,7 @@ void K3b::DvdCopyJob::slotDiskInfoReady( K3b::Device::DeviceHandler* dh )
                     }
                 }
             }
+            [[fallthrough]];
         case K3b::Device::MEDIA_DVD_R:
         case K3b::Device::MEDIA_DVD_R_SEQ:
         case K3b::Device::MEDIA_DVD_RW:
@@ -280,7 +281,7 @@ void K3b::DvdCopyJob::slotDiskInfoReady( K3b::Device::DeviceHandler* dh )
                 break;
             }
 
-            // fallthrough
+            [[fallthrough]];
 
         case K3b::Device::MEDIA_DVD_PLUS_RW:
         case K3b::Device::MEDIA_DVD_RW_OVWR:

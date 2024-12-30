@@ -335,7 +335,7 @@ void K3b::ProjectManager::loadDefaults( K3b::Doc* doc )
         movixDoc->setEjectDisk( c.readEntry( "eject", false ) );
         movixDoc->setRandomPlay( c.readEntry( "random_play", false ) );
         movixDoc->setNoDma( c.readEntry( "no_dma", false ) );
-        // fallthrough
+        [[fallthrough]];
     }
 
     case K3b::Doc::DataProject: {

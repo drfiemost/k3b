@@ -421,7 +421,7 @@ void K3b::DataUrlAddingDialog::slotAddUrls()
                                                       KStandardGuiItem::cancel() ) ) {
                 case 2: // replace all
                     m_bExistingItemsReplaceAll = true;
-                    // fallthrough
+                    [[fallthrough]];
                 case 1: // replace
                     // if we replace an item from an old session the K3b::FileItem constructor takes care
                     // of replacing the item
@@ -430,7 +430,7 @@ void K3b::DataUrlAddingDialog::slotAddUrls()
                     break;
                 case 4: // ignore all
                     m_bExistingItemsIgnoreAll = true;
-                    // fallthrough
+                    [[fallthrough]];
                 case 3: // ignore
                     valid = false;
                     break;
