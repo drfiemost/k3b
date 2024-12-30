@@ -1811,7 +1811,7 @@ bool K3b::Device::Device::open( bool write ) const
     d->openedReadWrite = write;
 
     if( d->deviceHandle == HANDLE_DEFAULT_VALUE)
-        d->deviceHandle = openDevice( QFile::encodeName(blockDeviceName()), write );
+        d->deviceHandle = openDevice( QFile::encodeName(blockDeviceName()).constData(), write );
 
     return ( d->deviceHandle != HANDLE_DEFAULT_VALUE);
 }

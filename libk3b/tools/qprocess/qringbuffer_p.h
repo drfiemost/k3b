@@ -127,7 +127,7 @@ public:
         // create a new QByteArray with the right size
         buffers << QByteArray();
         ++tailBuffer;
-        buffers[tailBuffer].resize(qMax(basicBlockSize, bytes));
+        buffers[tailBuffer].resize(std::max(basicBlockSize, bytes));
         tail = bytes;
         return buffers[tailBuffer].data();
     }
@@ -231,11 +231,11 @@ public:
     }
 
     inline int read(char *data, int maxLength) {
-        int bytesToRead = qMin(size(), maxLength);
+        int bytesToRead = std::min(size(), maxLength);
         int readSoFar = 0;
         while (readSoFar < bytesToRead) {
             const char *ptr = readPointer();
-            int bytesToReadFromThisBlock = qMin(bytesToRead - readSoFar, nextDataBlockSize());
+            int bytesToReadFromThisBlock = std::min(bytesToRead - readSoFar, nextDataBlockSize());
             if (data)
                 memcpy(data + readSoFar, ptr, bytesToReadFromThisBlock);
             readSoFar += bytesToReadFromThisBlock;
@@ -246,7 +246,7 @@ public:
 
     inline QByteArray read(int maxLength) {
         QByteArray tmp;
-        tmp.resize(qMin(maxLength, size()));
+        tmp.resize(std::min(maxLength, size()));
         read(tmp.data(), tmp.size());
         return tmp;
     }
@@ -256,7 +256,7 @@ public:
     }
 
     inline QByteArray peek(int maxLength) const {
-        int bytesToRead = qMin(size(), maxLength);
+        int bytesToRead = std::min(size(), maxLength);
         if(maxLength <= 0)
             return QByteArray();
         QByteArray ret;
@@ -269,7 +269,7 @@ public:
                 start = head;
             if (i == tailBuffer)
                 end = tail;
-            const int len = qMin(ret.size()-readSoFar, end-start);
+            const int len = std::min(ret.size()-readSoFar, end-start);
             memcpy(ret.data()+readSoFar, buffers.at(i).constData()+start, len);
             readSoFar += len;
         }
@@ -290,8 +290,8 @@ public:
 
         int readSoFar = 0;
         while (readSoFar < index + 1 && readSoFar < maxLength - 1) {
-            int bytesToRead = qMin((index + 1) - readSoFar, nextDataBlockSize());
-            bytesToRead = qMin(bytesToRead, (maxLength - 1) - readSoFar);
+            int bytesToRead = std::min((index + 1) - readSoFar, nextDataBlockSize());
+            bytesToRead = std::min(bytesToRead, (maxLength - 1) - readSoFar);
             memcpy(data + readSoFar, readPointer(), bytesToRead);
             readSoFar += bytesToRead;
             free(bytesToRead);

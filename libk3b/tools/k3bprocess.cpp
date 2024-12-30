@@ -133,7 +133,7 @@ K3b::Process& K3b::Process::operator<<( const char* arg )
 
 K3b::Process& K3b::Process::operator<<( const QByteArray& arg )
 {
-    return static_cast<Process&>( K3bKProcess::operator<<( QLatin1String( arg ) ) );
+    return static_cast<Process&>( K3bKProcess::operator<<( QLatin1String( arg.constData() ) ) );
 }
 
 

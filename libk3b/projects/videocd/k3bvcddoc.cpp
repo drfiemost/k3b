@@ -195,7 +195,7 @@ K3b::VcdTrack* K3b::VcdDoc::createTrack( const KUrl& url )
 {
     char filename[ 255 ];
     QString error_string = "";
-    strcpy( filename, QFile::encodeName( url.toLocalFile() ) );
+    strcpy( filename, QFile::encodeName( url.toLocalFile() ).constData() );
     K3b::MpegInfo* Mpeg = new K3b::MpegInfo( filename );
 
     if ( Mpeg ) {

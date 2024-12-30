@@ -1049,7 +1049,7 @@ QString K3b::IsoImager::dummyDir( K3b::DirItem* dir )
     k3b_struct_stat statBuf;
     if( !dir->localPath().isEmpty() ) {
         // permissions
-        if( k3b_stat( QFile::encodeName(dir->localPath()), &statBuf ) == 0 ) {
+        if( k3b_stat( QFile::encodeName(dir->localPath()).constData(), &statBuf ) == 0 ) {
             name += "_";
             name += QString::number( statBuf.st_uid );
             name += "_";
@@ -1072,11 +1072,11 @@ QString K3b::IsoImager::dummyDir( K3b::DirItem* dir )
         _appDir.cd( name );
 
         if( perm ) {
-            ::chmod( QFile::encodeName( _appDir.absolutePath() ), statBuf.st_mode );
-            ::chown( QFile::encodeName( _appDir.absolutePath() ), statBuf.st_uid, statBuf.st_gid );
+            ::chmod( QFile::encodeName( _appDir.absolutePath() ).constData(), statBuf.st_mode );
+            ::chown( QFile::encodeName( _appDir.absolutePath() ).constData(), statBuf.st_uid, statBuf.st_gid );
             struct utimbuf tb;
             tb.actime = tb.modtime = statBuf.st_mtime;
-            ::utime( QFile::encodeName( _appDir.absolutePath() ), &tb );
+            ::utime( QFile::encodeName( _appDir.absolutePath() ).constData(), &tb );
         }
     }
 

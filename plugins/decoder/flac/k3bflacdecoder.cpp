@@ -288,7 +288,7 @@ bool K3bFLACDecoder::analyseFileInternal( K3b::Msf& frames, int& samplerate, int
     if ((d->comments == 0) || (d->comments->get_num_comments() == 0)) {
         // no Vorbis comments, check for ID3 tags
         kDebug() << "(K3bFLACDecoder) using taglib to read tag";
-        TagLib::FLAC::File f( QFile::encodeName(filename()) );
+        TagLib::FLAC::File f( QFile::encodeName(filename()).constData() );
         if( f.isOpen() ) {
             addMetaInfo( META_TITLE, TStringToQString( f.tag()->title() ) );
             addMetaInfo( META_ARTIST, TStringToQString( f.tag()->artist() ) );
@@ -469,7 +469,7 @@ bool K3bFLACDecoderFactory::canDecode( const KUrl& url )
     }
 
     FLAC::Metadata::StreamInfo info = FLAC::Metadata::StreamInfo();
-    FLAC::Metadata::get_streaminfo(url.toLocalFile().toAscii(), info);
+    FLAC::Metadata::get_streaminfo(url.toLocalFile().toAscii().constData(), info);
 
     if((info.get_channels() <= 2) &&
        (info.get_bits_per_sample() <= 16)) {

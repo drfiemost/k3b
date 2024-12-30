@@ -428,7 +428,7 @@ static void qt_create_pipe(int *pipe)
 #else
     if (::pipe(pipe) != 0) {
         qWarning("QProcessPrivate::createPipe: Cannot create pipe %p: %s",
-                 pipe, qPrintable(qt_error_string(errno)));
+                 static_cast<void*>(pipe), qPrintable(qt_error_string(errno)));
     }
 #endif
     ::fcntl(pipe[0], F_SETFD, FD_CLOEXEC);
@@ -498,7 +498,7 @@ bool K3bQProcessPrivate::createChannel(Channel &channel)
         if (&channel == &stdinChannel) {
             // try to open in read-only mode
             channel.pipe[1] = -1;
-            if ( (channel.pipe[0] = QT_OPEN(fname, O_RDONLY)) != -1)
+            if ( (channel.pipe[0] = QT_OPEN(fname.constData(), O_RDONLY)) != -1)
                 return true;    // success
 
             q->setErrorString(K3bQProcess::tr("Could not open input redirection for reading"));
@@ -510,7 +510,7 @@ bool K3bQProcessPrivate::createChannel(Channel &channel)
                 mode |= O_TRUNC;
 
             channel.pipe[0] = -1;
-            if ( (channel.pipe[1] = QT_OPEN(fname, mode, 0666)) != -1)
+            if ( (channel.pipe[1] = QT_OPEN(fname.constData(), mode, 0666)) != -1)
                 return true; // success
 
             q->setErrorString(K3bQProcess::tr("Could not open output redirection for writing"));

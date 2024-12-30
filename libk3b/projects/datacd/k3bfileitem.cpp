@@ -65,8 +65,8 @@ K3b::FileItem::FileItem( const QString& filePath, K3b::DataDoc* doc, K3b::DirIte
     // we determine the size here to avoid problems with removed or renamed files
     // we need to use lstat here since for symlinks both KDE and QT return the size of the file pointed to
     // instead the size of the link.
-    if( k3b_lstat( QFile::encodeName(filePath), &statBuf ) == 0 ) {
-        if( k3b_stat( QFile::encodeName(filePath), &followedStatBuf ) == 0 ) {
+    if( k3b_lstat( QFile::encodeName(filePath).constData(), &statBuf ) == 0 ) {
+        if( k3b_stat( QFile::encodeName(filePath).constData(), &followedStatBuf ) == 0 ) {
             init( filePath, k3bName, doc, &statBuf, &followedStatBuf );
         }
         else {
@@ -76,7 +76,7 @@ K3b::FileItem::FileItem( const QString& filePath, K3b::DataDoc* doc, K3b::DirIte
     }
     else {
         kError() << "(KFileItem) lstat failed: " << QString::fromLocal8Bit( ::strerror(errno) ) << endl;
-        if( k3b_stat( QFile::encodeName(filePath), &followedStatBuf ) == 0 ) {
+        if( k3b_stat( QFile::encodeName(filePath).constData(), &followedStatBuf ) == 0 ) {
             init( filePath, k3bName, doc, 0, &followedStatBuf );
         }
         else {

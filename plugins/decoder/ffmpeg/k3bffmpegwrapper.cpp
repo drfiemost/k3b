@@ -102,7 +102,7 @@ bool K3bFFMpegFile::open()
     close();
 
     // open the file
-    int err = ::avformat_open_input( &d->formatContext, m_filename.toLocal8Bit(), 0, 0 );
+    int err = ::avformat_open_input( &d->formatContext, m_filename.toLocal8Bit().constData(), 0, 0 );
     if( err < 0 ) {
         kDebug() << "(K3bFFMpegFile) unable to open " << m_filename << " with error " << err;
         return false;
@@ -161,7 +161,7 @@ bool K3bFFMpegFile::open()
     d->packet = ::av_packet_alloc();
 
     // dump some debugging info
-    ::av_dump_format( d->formatContext, 0, m_filename.toLocal8Bit(), 0 );
+    ::av_dump_format( d->formatContext, 0, m_filename.toLocal8Bit().constData(), 0 );
 
     return true;
 }

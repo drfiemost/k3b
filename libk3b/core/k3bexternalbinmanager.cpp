@@ -372,7 +372,7 @@ bool K3b::SimpleExternalProgram::scanFeatures( ExternalBin& bin ) const
 #ifndef Q_OS_WIN32
     // check if we run as root
     struct stat s;
-    if( !::stat( QFile::encodeName(bin.path()), &s ) ) {
+    if( !::stat( QFile::encodeName(bin.path()).constData(), &s ) ) {
         if( (s.st_mode & S_ISUID) && s.st_uid == 0 )
             bin.addFeature( "suidroot" );
     }

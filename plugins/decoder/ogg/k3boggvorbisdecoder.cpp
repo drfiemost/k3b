@@ -62,7 +62,7 @@ K3bOggVorbisDecoder::~K3bOggVorbisDecoder()
 bool K3bOggVorbisDecoder::openOggVorbisFile()
 {
     if( !d->isOpen ) {
-        FILE* file = fopen( QFile::encodeName(filename()), "r" );
+        FILE* file = fopen( QFile::encodeName(filename()).constData(), "r" );
         if( !file ) {
             kDebug() << "(K3bOggVorbisDecoder) Could not open file " << filename();
             return false;
@@ -223,7 +223,7 @@ K3b::AudioDecoder* K3bOggVorbisDecoderFactory::createDecoder( QObject* parent ) 
 
 bool K3bOggVorbisDecoderFactory::canDecode( const KUrl& url )
 {
-    FILE* file = fopen( QFile::encodeName(url.toLocalFile()), "r" );
+    FILE* file = fopen( QFile::encodeName(url.toLocalFile()).constData(), "r" );
     if( !file ) {
         kDebug() << "(K3bOggVorbisDecoder) Could not open file " << url.toLocalFile();
         return false;

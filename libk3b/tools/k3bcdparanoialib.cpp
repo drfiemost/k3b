@@ -297,7 +297,7 @@ bool K3b::CdparanoiaLibData::paranoiaInit()
     // the device here
     m_device->close();
 
-    m_drive = cdda_cdda_identify( QFile::encodeName(m_device->blockDeviceName()), 0, 0 );
+    m_drive = cdda_cdda_identify( QFile::encodeName(m_device->blockDeviceName()).constData(), 0, 0 );
     if( m_drive == 0 ) {
         return false;
     }

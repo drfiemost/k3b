@@ -63,7 +63,7 @@ public:
     void stat() {
 #ifndef Q_OS_WIN32
         struct statfs fs;
-        if( !::statfs( QFile::encodeName( QFileInfo(path).absolutePath() ), &fs ) ) {
+        if( !::statfs( QFile::encodeName( QFileInfo(path).absolutePath() ).constData(), &fs ) ) {
             switch( fs.f_type ) {
             case 0x4d44: // MS-DOS
                 type = FS_FAT;

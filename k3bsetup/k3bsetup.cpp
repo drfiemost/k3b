@@ -183,7 +183,7 @@ void K3bSetup::save()
     QString burningGroup = m_editBurningGroup->text();
 
     if( m_checkUseBurningGroup->isChecked() && !burningGroup.isEmpty() ) {
-        if( !getgrnam( burningGroup.toLocal8Bit() ) ) {
+        if( !getgrnam( burningGroup.toLocal8Bit().constData() ) ) {
             KMessageBox::error( this, i18n( "There is no group \"%1\".", burningGroup ) );
             QTimer::singleShot( 0, this, SLOT(slotDataChanged()) );
             return;

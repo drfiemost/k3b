@@ -270,12 +270,12 @@ void K3b::DataUrlAddingDialog::slotAddUrls()
         m_nonLocalFiles.append( url.toLocalFile() );
     }
 
-    else if( k3b_lstat( QFile::encodeName(absoluteFilePath), &statBuf ) != 0 ) {
+    else if( k3b_lstat( QFile::encodeName(absoluteFilePath).constData(), &statBuf ) != 0 ) {
         valid = false;
         m_notFoundFiles.append( url.toLocalFile() );
     }
 
-    else if( !m_encodingConverter->encodedLocally( QFile::encodeName( url.toLocalFile() ) ) ) {
+    else if( !m_encodingConverter->encodedLocally( QFile::encodeName( url.toLocalFile() ).constData() ) ) {
         valid = false;
         m_invalidFilenameEncodingFiles.append( url.toLocalFile() );
     }
@@ -294,7 +294,7 @@ void K3b::DataUrlAddingDialog::slotAddUrls()
         }
 
         else {
-            if( ::access( QFile::encodeName( absoluteFilePath ), R_OK ) != 0 ) {
+            if( ::access( QFile::encodeName( absoluteFilePath ).constData(), R_OK ) != 0 ) {
                 valid = false;
                 m_unreadableFiles.append( url.toLocalFile() );
             }

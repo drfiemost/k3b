@@ -637,7 +637,7 @@ bool K3b::Iso9660::open()
     /* We'll use the permission and user/group of the 'host' file except
      * in Rock Ridge, where the permissions are stored on the file system
      */
-    if ( k3b_stat( QFile::encodeName(m_filename), &buf ) < 0 ) {
+    if ( k3b_stat( QFile::encodeName(m_filename).constData(), &buf ) < 0 ) {
         /* defaults, if stat fails */
         memset(&buf,0,sizeof(k3b_struct_stat));
         buf.st_mode=0777;

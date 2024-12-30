@@ -876,7 +876,7 @@ K3bQProcess::K3bQProcess(QObject *parent)
 {
     d_ptr->q_ptr = this;
 //#if defined QPROCESS_DEBUG
-    qDebug("K3bQProcess::QProcess(%p)", parent);
+    qDebug("K3bQProcess::QProcess(%p)", static_cast<void*>(parent));
 //#endif
 }
 

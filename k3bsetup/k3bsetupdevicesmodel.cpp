@@ -46,7 +46,7 @@ public:
 bool DevicesModel::Private::needChangePermissions( const Device::Device* device )
 {
     struct stat s;
-    if( ::stat( QFile::encodeName( device->blockDeviceName() ), &s ) == 0 ) {
+    if( ::stat( QFile::encodeName( device->blockDeviceName() ).constData(), &s ) == 0 ) {
 
         QFileInfo fi( device->blockDeviceName() );
         int perm = s.st_mode & 0000777;
@@ -154,7 +154,7 @@ QVariant DevicesModel::data( const QModelIndex& index, int role ) const
         }
         else {
             struct stat s;
-            if( ::stat( QFile::encodeName( device->blockDeviceName() ), &s ) == 0 ) {
+            if( ::stat( QFile::encodeName( device->blockDeviceName() ).constData(), &s ) == 0 ) {
 
                 QFileInfo fi( device->blockDeviceName() );
                 int perm = s.st_mode & 0000777;

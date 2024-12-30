@@ -137,13 +137,13 @@ bool K3b::DirSizeJob::countFiles( const QStringList& l, const QString& dir )
             return false;
 
         k3b_struct_stat s;
-        if( k3b_lstat( QFile::encodeName( dir + *it ), &s ) )
+        if( k3b_lstat( QFile::encodeName( dir + *it ).constData(), &s ) )
             return false;
 
         if( S_ISLNK( s.st_mode ) ) {
             ++d->totalSymlinks;
             if( d->followSymlinks ) {
-                if( k3b_stat( QFile::encodeName( dir + *it ), &s ) )
+                if( k3b_stat( QFile::encodeName( dir + *it ).constData(), &s ) )
                     return false;
             }
         }

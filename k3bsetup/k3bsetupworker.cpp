@@ -31,14 +31,14 @@ bool updateDevicePermissions( struct group* g, const QString& device )
 {
     bool success = true;
     if( g != 0 ) {
-        if( ::chmod( QFile::encodeName(device), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP ) )
+        if( ::chmod( QFile::encodeName(device).constData(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP ) )
             success = false;
 
-        if( ::chown( QFile::encodeName(device), (gid_t)-1, g->gr_gid ) )
+        if( ::chown( QFile::encodeName(device).constData(), (gid_t)-1, g->gr_gid ) )
             success = false;
     }
     else {
-        if( ::chmod( QFile::encodeName(device), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH ) )
+        if( ::chmod( QFile::encodeName(device).constData(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH ) )
             success = false;
     }
     return success;
@@ -49,7 +49,7 @@ bool updateProgramPermissions( struct group* g, const QString& path, bool suid )
 {
     bool success = true;
     if( g != 0 ) {
-        if( ::chown( QFile::encodeName(path), (gid_t)0, g->gr_gid ) )
+        if( ::chown( QFile::encodeName(path).constData(), (gid_t)0, g->gr_gid ) )
             success = false;
 
         int perm = 0;
@@ -58,11 +58,11 @@ bool updateProgramPermissions( struct group* g, const QString& path, bool suid )
         else
             perm = S_IRWXU|S_IXGRP|S_IRGRP;
 
-        if( ::chmod( QFile::encodeName(path), perm ) )
+        if( ::chmod( QFile::encodeName(path).constData(), perm ) )
             success = false;
     }
     else {
-        if( ::chown( QFile::encodeName(path), 0, 0 ) )
+        if( ::chown( QFile::encodeName(path).constData(), 0, 0 ) )
             success = false;
 
         int perm = 0;
@@ -71,7 +71,7 @@ bool updateProgramPermissions( struct group* g, const QString& path, bool suid )
         else
             perm = S_IRWXU|S_IXGRP|S_IRGRP|S_IXOTH|S_IROTH;
 
-        if( ::chmod( QFile::encodeName(path), perm ) )
+        if( ::chmod( QFile::encodeName(path).constData(), perm ) )
             success = false;
     }
     return success;
@@ -98,7 +98,7 @@ ActionReply Worker::save( QVariantMap args )
     struct group* g = 0;
     if( !burningGroup.isEmpty() ) {
         // TODO: create the group if it's not there
-        g = getgrnam( burningGroup.toLocal8Bit() );
+        g = getgrnam( burningGroup.toLocal8Bit().constData() );
     }
     
     QStringList updated;

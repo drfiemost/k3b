@@ -654,9 +654,9 @@ bool K3b::CdrdaoWriter::cueSheet()
             QString tempFile = tempF.fileName();
             tempF.remove();
 
-            if ( symlink(QFile::encodeName( binpath ), QFile::encodeName( tempFile + ".bin") ) == -1 )
+            if ( symlink(QFile::encodeName( binpath ).constData(), QFile::encodeName( tempFile + ".bin").constData() ) == -1 )
                 return false;
-            if ( symlink(QFile::encodeName( m_tocFile ), QFile::encodeName( tempFile + ".cue") ) == -1 )
+            if ( symlink(QFile::encodeName( m_tocFile ).constData(), QFile::encodeName( tempFile + ".cue").constData() ) == -1 )
                 return false;
 
             kDebug() << QString("K3b::CdrdaoWriter::cueSheet() symlink BinFileName: %1.bin").arg( tempFile );

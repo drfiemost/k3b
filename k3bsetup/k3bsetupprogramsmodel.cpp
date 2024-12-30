@@ -104,7 +104,7 @@ bool ProgramsModel::Private::getProgramInfo( const ExternalBin* program,
 {
     // we need the uid bit which is not supported by QFileInfo
     struct stat s;
-    if( ::stat( QFile::encodeName(program->path()), &s ) == 0 ) {
+    if( ::stat( QFile::encodeName(program->path()).constData(), &s ) == 0 ) {
 
         QFileInfo fi( program->path() );
         owner = fi.owner();
