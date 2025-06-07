@@ -3751,7 +3751,7 @@ QByteArray K3b::Device::Device::mediaId( int mediaType ) const
         unsigned int dataLen = 0;
         if( readDvdStructure( &data, dataLen, 0x0E ) ) {
             if( data[4+16] == 3 && data[4+24] == 4 ) {
-                id.sprintf( "%6.6s%-6.6s", data+4+17, data+4+25 );
+                id = QString::asprintf( "%6.6s%-6.6s", data+4+17, data+4+25 );
             }
             delete [] data;
         }
@@ -3762,7 +3762,7 @@ QByteArray K3b::Device::Device::mediaId( int mediaType ) const
         unsigned int dataLen = 0;
         if( readDvdStructure( &data, dataLen, 0x11 ) ||
             readDvdStructure( &data, dataLen, 0x0 ) ) {
-            id.sprintf( "%8.8s/%3.3s", data+23, data+31 );
+            id = QString::asprintf( "%8.8s/%3.3s", data+23, data+31 );
             delete [] data;
         }
     }
@@ -3772,7 +3772,7 @@ QByteArray K3b::Device::Device::mediaId( int mediaType ) const
         unsigned int dataLen = 0;
         if( readDiscStructure( &data, dataLen, 1, 0 ) ) {
             if( data[4+0] == 'D' && data[4+1] == 'I' )
-                id.sprintf ("%6.6s/%-3.3s", data+4+100, data+4+106 );
+                id = QString::asprintf ("%6.6s/%-3.3s", data+4+100, data+4+106 );
             delete [] data;
         }
     }
