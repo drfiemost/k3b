@@ -36,6 +36,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kio/global.h>
+#include <kdiskfreespaceinfo.h>
 
 #include <qfile.h>
 #include <qfileinfo.h>
@@ -346,16 +347,16 @@ void K3b::DvdCopyJob::slotDiskInfoReady( K3b::Device::DeviceHandler* dh )
             // check free temp space
             //
             KIO::filesize_t imageSpaceNeeded = (KIO::filesize_t)(d->lastSector.lba()+1)*2048;
-            unsigned long avail, size;
             QString pathToTest = m_imagePath.left( m_imagePath.lastIndexOf( '/' ) );
-            if( !K3b::kbFreeOnFs( pathToTest, size, avail ) ) {
+            KDiskFreeSpaceInfo info = KDiskFreeSpaceInfo::freeSpaceInfo( pathToTest );
+            if( !info.isValid() ) {
                 emit infoMessage( i18n("Unable to determine free space in temporary folder '%1'.",pathToTest), MessageError );
                 jobFinished(false);
                 d->running = false;
                 return;
             }
             else {
-                if( avail < imageSpaceNeeded/1024 ) {
+                if( info.available() < imageSpaceNeeded/1024 ) {
                     emit infoMessage( i18n("Not enough space left in temporary folder."), MessageError );
                     jobFinished(false);
                     d->running = false;

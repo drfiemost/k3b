@@ -184,7 +184,7 @@ bool K3b::MpegInfo::MpegParsePacket ()
 llong K3b::MpegInfo::MpegParsePacket ( llong offset )
 {
     byte mark = 0;
-    uint size = 0;
+    //uint size = 0;
 
     /* continue until start code seen */
     offset = FindNextMarker( offset, &mark );
@@ -258,7 +258,7 @@ llong K3b::MpegInfo::MpegParsePacket ( llong offset )
     case MPEG_AUDIO_C2_CODE:
 
         offset += 4;
-        size = GetSize( offset );
+        //size = GetSize( offset );
         offset += 2;
         // kDebug() << QString( "offset = %1, size = %2" ).arg( offset ).arg( size );
 

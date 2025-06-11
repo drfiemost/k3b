@@ -48,8 +48,8 @@
 #define FLOAT_0x10000 (double)((unsigned long)1 << 16)
 #define STD_SYSTEM_CLOCK_FREQ (unsigned long)90000
 
-typedef unsigned char byte;
-typedef long long llong;
+using byte = unsigned char;
+using llong = long long;
 
 #include <kdebug.h>
 

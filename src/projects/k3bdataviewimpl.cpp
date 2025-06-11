@@ -254,9 +254,9 @@ void K3b::DataViewImpl::slotSelectionChanged()
     }
 
     // check if all selected items can be removed
-    foreach(const QModelIndex &index, indexes)
+    for(const QModelIndex &index: indexes)
     {
-        if (!index.data(CustomFlagsRole).toInt() & ItemIsRemovable)
+        if (!(index.data(CustomFlagsRole).toInt() & ItemIsRemovable))
         {
             remove = false;
             break;

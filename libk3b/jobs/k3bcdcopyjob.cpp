@@ -39,6 +39,7 @@
 #include <kio/netaccess.h>
 #include <kio/job.h>
 #include <kio/global.h>
+#include <kdiskfreespaceinfo.h>
 
 #include <qtimer.h>
 #include <qstringlist.h>
@@ -313,15 +314,15 @@ void K3b::CdCopyJob::slotDiskInfoReady( K3b::Device::DeviceHandler* dh )
                     imageSpaceNeeded += (*it).length().mode1Bytes();
             }
 
-            unsigned long avail, size;
             QString pathToTest = m_tempPath.left( m_tempPath.lastIndexOf( '/' ) );
-            if( !K3b::kbFreeOnFs( pathToTest, size, avail ) ) {
+            KDiskFreeSpaceInfo info = KDiskFreeSpaceInfo::freeSpaceInfo( pathToTest );
+            if( !info.isValid() ) {
                 emit infoMessage( i18n("Unable to determine free space in temporary folder '%1'.",pathToTest), MessageError );
                 d->error = true;
                 canCopy = false;
             }
             else {
-                if( avail < imageSpaceNeeded/1024 ) {
+                if( info.available() < imageSpaceNeeded/1024 ) {
                     emit infoMessage( i18n("Not enough space left in temporary folder."), MessageError );
                     d->error = true;
                     canCopy = false;

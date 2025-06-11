@@ -213,6 +213,7 @@ bool K3b::DataTrackReader::run()
                 break;
             case K3b::Device::Track::MODE2:
                 emit infoMessage( i18n("No support for reading formless Mode2 sectors."), K3b::Job::MessageError );
+                [[fallthrough]];
             default:
                 emit infoMessage( i18n("Unsupported sector type."), K3b::Job::MessageError );
                 d->device->close();

@@ -31,6 +31,7 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 #include <KUrlRequester>
+#include <kdiskfreespaceinfo.h>
 
 // qt includes
 #include <QCheckBox>
@@ -220,9 +221,9 @@ void K3b::VideoCdRippingDialog::slotUpdateFreeSpace()
     if( !QFile::exists( path ) )
         path.truncate( path.lastIndexOf('/') );
 
-    unsigned long size, avail;
-    if( K3b::kbFreeOnFs( path, size, avail ) )
-        slotFreeSpace( path, size, 0, avail );
+    KDiskFreeSpaceInfo info = KDiskFreeSpaceInfo::freeSpaceInfo( path );
+    if( info.isValid() )
+        slotFreeSpace( path, info.size(), 0, info.available() );
     else
         m_labelFreeSpace->setText("-");
 }
