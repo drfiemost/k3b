@@ -16,6 +16,7 @@
 #ifndef _K3BSETUPPROGRAMITEM_H_
 #define _K3BSETUPPROGRAMITEM_H_
 
+#include <QDataStream>
 #include <QMetaType>
 #include <QString>
 
