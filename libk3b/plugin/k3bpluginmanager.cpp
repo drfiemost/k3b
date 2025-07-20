@@ -23,7 +23,6 @@
 #include <KDebug>
 #include <KDialog>
 #include <KGlobal>
-#include <KLibLoader>
 #include <KLocale>
 #include <KMessageBox>
 #include <KPluginInfo>
