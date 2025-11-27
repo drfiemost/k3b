@@ -79,7 +79,7 @@ K3bLameEncoderSettingsWidget::K3bLameEncoderSettingsWidget( QWidget* parent, con
              this, SLOT(slotQualityLevelChanged(int)) );
 
     updateManualSettingsLabel();
-    slotQualityLevelChanged( 5 );
+    slotQualityLevelChanged( m_sliderQuality->value() );
 
     connect( m_radioQualityLevel, SIGNAL(toggled( bool )), this, SLOT( changed() ) );
     connect( m_sliderQuality, SIGNAL(valueChanged( int )), this, SLOT( changed() ) );
