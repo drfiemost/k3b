@@ -65,14 +65,6 @@ K3b::AudioView::AudioView( K3b::AudioDoc* doc, QWidget* parent )
 //     m_songlist->player()->action( AudioTrackPlayer::ACTION_SEEK )->plug( toolBox() );
 //     toolBox()->addSeparator();
 
-#if 0
-#ifdef HAVE_MUSICBRAINZ
-    kDebug() << "(AudioView) m_songlist->actionCollection()->actions().count() " << m_songlist->actionCollection()->actions().count();
-    toolBox()->addAction( m_songlist->actionCollection()->action( "project_audio_musicbrainz" ) );
-    toolBox()->addSeparator();
-#endif
-#endif
-
     toolBox()->addActions( createPluginsActions( m_doc->type() ) );
 
     // this is just for testing (or not?)
@@ -83,9 +75,6 @@ K3b::AudioView::AudioView( K3b::AudioDoc* doc, QWidget* parent )
             "<MenuBar>"
             " <Menu name=\"project\"><text>&amp;Project</text>"
             "  <Action name=\"project_audio_convert\"/>"
-#ifdef HAVE_MUSICBRAINZ
-            "  <Action name=\"project_audio_musicbrainz\"/>"
-#endif
             " </Menu>"
             "</MenuBar>"
             "</kpartgui>", true );

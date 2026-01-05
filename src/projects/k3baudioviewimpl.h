@@ -56,7 +56,6 @@ namespace K3b {
         void slotEditSource();
         void slotTrackProperties();
         void slotPlayTrack();
-        void slotQueryMusicBrainz();
         void slotSelectionChanged();
         void slotAudioConversion();
         void slotAdjustColumns();
@@ -81,7 +80,6 @@ namespace K3b {
         KAction* m_actionSplitTrack;
         KAction* m_actionEditSource;
         KAction* m_actionPlayTrack;
-        KAction* m_actionMusicBrainz;
         KAction* m_actionProperties;
         KAction* m_actionRemove;
         KAction* m_conversionAction;

@@ -28,7 +28,6 @@ set(K3B_LIB_VERSION_RELEASE 0)
 
 ##################  K3b options #################################
 option(K3B_DEBUG "K3b additional debugging support")
-option(K3B_ENABLE_MUSICBRAINZ "Support for querying metadata about audio tracks from Musicbrainz." ON)
 option(K3B_ENABLE_DVD_RIPPING "Support for ripping Video DVDs with optional decryption." ON)
 option(K3B_ENABLE_TAGLIB "Support for reading audio file metadata using Taglib." ON)
 option(K3B_BUILD_API_DOCS "Build the API documentation for the K3b libs." OFF)
@@ -89,14 +88,6 @@ macro_log_feature( SAMPLERATE_FOUND "Samplerate"
   "Audio sampling rate conversion."
   "http://www.mega-nerd.com/SRC/"
   TRUE "" "")
-
-if(K3B_ENABLE_MUSICBRAINZ)
-  find_package(MusicBrainz)
-  macro_log_feature( MUSICBRAINZ_FOUND "Musicbrainz"
-    "Provide information about the CD, about the artist or about related information"
-    "http://musicbrainz.org/"
-    FALSE "1.1" "")
-endif(K3B_ENABLE_MUSICBRAINZ)
 
 find_package(Kcddb)
 macro_log_feature( KCDDB_FOUND "KCddb"

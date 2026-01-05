@@ -80,9 +80,6 @@ K3b::AudioViewImpl::AudioViewImpl( View* view, AudioDoc* doc, KActionCollection*
                                        actionCollection, "edit_source" );
     m_actionPlayTrack = createAction( m_view, i18n("Play Track"), "media-playback-start", 0, this, SLOT(slotPlayTrack()),
                                       actionCollection, "track_play" );
-    m_actionMusicBrainz = createAction( m_view, i18n("Musicbrainz Lookup"), "musicbrainz", 0, this, SLOT(slotQueryMusicBrainz()),
-                                        actionCollection, "project_audio_musicbrainz");
-    m_actionMusicBrainz->setToolTip( i18n("Try to determine meta information over the Internet") );
     m_actionProperties = createAction( m_view, i18n("Properties"), "document-properties", 0, this, SLOT(slotTrackProperties()),
                                        actionCollection, "track_properties" );
     m_actionRemove = createAction( m_view, i18n("Remove"), "edit-delete", Qt::Key_Delete, this, SLOT(slotRemove()),
@@ -110,14 +107,8 @@ K3b::AudioViewImpl::AudioViewImpl( View* view, AudioDoc* doc, KActionCollection*
     m_trackView->addAction( m_actionMergeTracks );
     m_trackView->addAction( m_actionProperties );
     m_trackView->addAction( separator );
-    m_trackView->addAction( m_actionMusicBrainz );
     m_trackView->addAction( separator );
     m_trackView->addAction( actionCollection->action("project_burn") );
-
-#ifndef HAVE_MUSICBRAINZ
-    m_actionMusicBrainz->setEnabled( false );
-    m_actionMusicBrainz->setVisible( false );
-#endif
 
 #ifdef __GNUC__
 #warning enable player once ported to Phonon
@@ -305,30 +296,6 @@ void K3b::AudioViewImpl::slotTrackProperties()
     else {
         m_view->slotProperties();
     }
-}
-
-
-void K3b::AudioViewImpl::slotQueryMusicBrainz()
-{
-#ifdef HAVE_MUSICBRAINZ
-    const QModelIndexList indexes = m_trackView->selectionModel()->selectedRows();
-    QList<AudioTrack*> tracks;
-    tracksForIndexes( tracks, indexes );
-
-    if( tracks.isEmpty() ) {
-        KMessageBox::sorry( this, i18n("Please select an audio track.") );
-        return;
-    }
-
-    // only one may use the tracks at the same time
-//     if( m_currentlyPlayingTrack &&
-//         tracks.containsRef( m_currentlyPlayingTrack ) )
-//         m_player->stop();
-
-    // now do the lookup on the files.
-    AudioTrackTRMLookupDialog dlg( this );
-    dlg.lookup( tracks );
-#endif
 }
 
 

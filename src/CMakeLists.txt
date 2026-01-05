@@ -254,20 +254,6 @@ if(ENABLE_DVD_RIPPING)
     )
 endif(ENABLE_DVD_RIPPING)
 
-if(ENABLE_MUSICBRAINZ)
-  set(k3b_SRCS
-    ${k3b_SRCS}
-    k3btrm.cpp
-    k3bmusicbrainz.cpp
-    )
-  set(k3b_project_SRCS
-    ${k3b_project_SRCS}
-    projects/k3bmusicbrainzjob.cpp
-    projects/k3bmusicbrainztrackloopupjob.cpp
-    projects/k3baudiotracktrmlookupdialog.cpp
-    )
-endif(ENABLE_MUSICBRAINZ)
-
 kde4_add_app_icon(k3b_bin_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-app-k3b.png)
 
 if (MSVC)
@@ -295,10 +281,6 @@ target_link_libraries(k3b_bin
   ${QT_QTWEBKIT_LIBRARY}
   ${X11_LIBRARIES}
   )
-
-if(ENABLE_MUSICBRAINZ)
-  target_link_libraries(k3b_bin ${MUSICBRAINZ_LIBRARIES})
-endif(ENABLE_MUSICBRAINZ)
 
 install(TARGETS k3b_bin ${INSTALL_TARGETS_DEFAULT_ARGS})
 
